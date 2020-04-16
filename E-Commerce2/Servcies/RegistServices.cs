@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.IRepository;
 using DataAccessLayer.Repository;
+using DataBaseLayer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -17,6 +18,7 @@ namespace E_Commerce2.Servcies
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddScoped<ICategoryService, CategoryService>();
+          //  services.AddScoped<User, User>();
         }
     }
 }

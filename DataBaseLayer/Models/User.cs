@@ -8,5 +8,6 @@ namespace DataBaseLayer.Models
    public class User:IdentityUser
     {
         public bool IsAdmin { get; set; }
+        public  string Country { get; set; }
     }
 }

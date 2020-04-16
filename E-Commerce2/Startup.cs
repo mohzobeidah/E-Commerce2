@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using AspNetCore.Serilog.RequestLoggingMiddleware;
 using AutoMapper;
 using DataBaseLayer.Data;
+using DataBaseLayer.Models;
 using E_Commerce2.Servcies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -35,6 +37,10 @@ namespace E_Commerce2
             //    options.CheckConsentNeeded = context => true;
             //    options.MinimumSameSitePolicy = SameSiteMode.None;
             //});
+
+            services.AddIdentity<User,IdentityRole>()
+           .AddEntityFrameworkStores<DataContext>()
+             .AddDefaultUI().AddDefaultTokenProviders(); ;
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<DataContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddRepositoryServcies();

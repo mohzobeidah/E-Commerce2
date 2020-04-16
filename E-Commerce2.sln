@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Commerce2", "E-Commerce2\E-Commerce2.csproj", "{0B316C07-071A-43F5-BCAD-BE6E98022DAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E-Commerce2", "E-Commerce2\E-Commerce2.csproj", "{0B316C07-071A-43F5-BCAD-BE6E98022DAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{2B038A91-D950-461C-A87D-1EC5C32CE70C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{2B038A91-D950-461C-A87D-1EC5C32CE70C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBaseLayer", "DataBaseLayer\DataBaseLayer.csproj", "{AD6D3E7E-8CEC-42D8-863B-2AC616AF9EF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataBaseLayer", "DataBaseLayer\DataBaseLayer.csproj", "{AD6D3E7E-8CEC-42D8-863B-2AC616AF9EF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
