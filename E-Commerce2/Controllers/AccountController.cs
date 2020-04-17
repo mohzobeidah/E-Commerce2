@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using DataAccessLayer.Enum;
 using DataAccessLayer.ViewModel;
 using DataBaseLayer.Models;
+using E_Commerce2.Servcies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite.Internal.ApacheModRewrite;
 using Microsoft.Extensions.Logging;
 
 namespace E_Commerce2.Controllers
@@ -19,17 +22,20 @@ namespace E_Commerce2.Controllers
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly ILogger<AccountController> logger;
+        private readonly IConfiguration configuration;
 
         public AccountController(UserManager<User> userManager  , SignInManager<User> signInManager,
-                                ILogger<AccountController> logger)
+                                ILogger<AccountController> logger, IConfiguration configuration)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
+            this.configuration = configuration;
         }
         public IActionResult Register()
         {
 
+            
             return View(new UserVM ());
         }
      [HttpPost]
@@ -56,15 +62,17 @@ namespace E_Commerce2.Controllers
 
                     logger.Log(LogLevel.Warning, confirmationLink);
 
-                    if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-                    {
-                        return RedirectToAction("ListUsers", "Administration");
-                    }
+                    //if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    //{
+                    //    return RedirectToAction("ListUsers", "Administration");
+                    //}
+
+                    var newemail = new DevEmailSender(configuration).SendEmailAsync(user.Email, "Email Confirmation", $"<h2>Thank you for joining us </h2><h2>to complete your registration please cclick the link  below</h2><a href='{confirmationLink}' class='btn btn-success'>Confirm your account</a>`");
 
                     ViewBag.ErrorTitle = "Registration successful";
                     ViewBag.ErrorMessage = "Before you can Login, please confirm your " +
                             "email, by clicking on the confirmation link we have emailed you";
-                    return View("Error");
+                    return View(model);
                 }
 
                 foreach (var error in result.Errors)
@@ -101,9 +109,72 @@ namespace E_Commerce2.Controllers
             return View("Error");
         }
 
-        // rest of the code
+        // rest of the code  
+        public IActionResult Login()
+    {
+
+
+
+        return View();
     }
-    
-     
-    
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(model.Email);
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+                    return View(model);
+                }
+
+                if (user.EmailConfirmed == false)
+                {
+                    var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                   
+                    var confirmationLink = Url.Action("ConfirmEmail", "Account",
+                      new { userId = user.Id, token = token }, Request.Scheme);
+
+                    logger.Log(LogLevel.Warning, confirmationLink);
+
+                    
+
+                    var newemail = new DevEmailSender(configuration).SendEmailAsync(user.Email, "Email Confirmation", $"<h2>Thank you for joining us </h2><h2>to complete your registration please cclick the link  below</h2><a href='{confirmationLink}' class='btn btn-success'>Confirm your account</a>`");
+                    ModelState.AddModelError(string.Empty, "Check your Email and verify your account");
+                    return View(model);
+                }
+
+                //if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                //{
+                //    return RedirectToAction("ListUsers", "Administration");
+                //}
+
+                var result = await signInManager.PasswordSignInAsync(
+                    model.Email, model.Password, model.RememberMe, false);
+
+                if (result.Succeeded)
+                {
+
+                    return RedirectToAction("index", "home");
+                }
+
+                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+            }
+
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("index", "home");
+        }   
+
+    }
+
+  
+
+
+
 }

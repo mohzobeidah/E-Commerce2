@@ -11,13 +11,22 @@ namespace E_Commerce2.Controllers
     {
         private readonly IHttpContextAccessor _accessor;
 
+        protected string USERNAME;
+        protected string IpAddresss;
+
         public BaseController(IHttpContextAccessor accessor)
         {
             _accessor = accessor;
+            checkUser();
         }
-        public IActionResult Index()
+        public void checkUser()
         {
-            return View();
+            if (_accessor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                USERNAME = _accessor.HttpContext.User.Identity.Name;
+
+                IpAddresss=_accessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            }
         }
     }
 }

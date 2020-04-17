@@ -7,6 +7,7 @@ using AutoMapper;
 using DataBaseLayer.Data;
 using DataBaseLayer.Models;
 using E_Commerce2.Servcies;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -38,13 +39,26 @@ namespace E_Commerce2
             //    options.MinimumSameSitePolicy = SameSiteMode.None;
             //});
 
-            services.AddIdentity<User,IdentityRole>()
+            services.AddIdentity<User, IdentityRole>()
            .AddEntityFrameworkStores<DataContext>()
-             .AddDefaultUI().AddDefaultTokenProviders(); ;
+             .AddDefaultTokenProviders();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.ConfigureApplicationCookie(options =>
+            {
+
+                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.LoginPath = "/Account/Login";
+                // ReturnUrlParameter requires 
+                //using Microsoft.AspNetCore.Authentication.Cookies;
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+                options.SlidingExpiration = true;
+            });
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<DataContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddRepositoryServcies();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+         
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,6 +80,9 @@ namespace E_Commerce2
             // app.UseSerilogRequestLogging();
             app.UseCookiePolicy();
 
+            app.UseAuthentication();
+
+            //app.UseAuthorization();
 
             //app.UseMvc(routes =>
             //{

@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "ConfirmEmail";
+
+}
+
+
+
+
+
+@if (ViewBag.ErrorTitle != null && ViewBag.ErrorMessage != null)
+{
+   
+    <div class="container text-center" style="padding:40px;">
+        <h1>Confirm Email</h1>
+        <br />
+        <h1>....Oppps</h1>
+
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">@ViewBag.ErrorTitle</h4>
+            <p>@ViewBag.ErrorMessage</p>
+
+        </div>
+    </div>
+
+}
+else
+{
+<div class="container text-center" style="padding:40px;">
+    <h1>Confirm Email</h1>
+    <br />
+    <h1>
+
+        thank you for joining us
+    </h1>
+    <h1>
+
+        press on the link below to go to login page
+    </h1>
+
+
+    @Html.ActionLink("Login Page", "login", "account")
+</div>
+}

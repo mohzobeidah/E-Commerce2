@@ -4,20 +4,21 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 3 | Blank Page</title>
+    <title>AL-Huda | @ViewData["Title"]</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="/AdminLTE-3.0.2/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/AdminLTE-3.0.2/plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="/AdminLTE-3.0.2plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="/AdminLTE-3.0.2/dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="/AdminLTE-3.0.2/dist/css/skins/_all-skins.min.css">
-
-
+    <link rel="stylesheet" href="~/AdminLTE-3.0.2/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/AdminLTE-3.0.2/dist/css/skins/_all-skins.min.css">
+    <link href="~/DataTables-1.10.20/media/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/jquery-toast-plugin-master/dist/jquery.toast.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE-3.0.2/plugins/select2/css/select2.min.css" rel="stylesheet" />
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
@@ -176,7 +177,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-                             with font-awesome or any other icon font library -->
+                        with font-awesome or any other icon font library -->
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -206,6 +207,59 @@
                                 </li>
                             </ul>
                         </li>
+
+
+
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Categories
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/admin/Category/" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Categories List </p>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Products
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/admin/Products/" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Products List </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/admin/Products/Add" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add new Product </p>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+
+
+
+
+
                         <li class="nav-item">
                             <a href="../widgets.html" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
@@ -711,22 +765,6 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>Blank Page</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Blank Page</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div><!-- /.container-fluid -->
-            </section>
-
             <!-- Main content -->
             <section class="content">
 
@@ -756,21 +794,25 @@
     <!-- ./wrapper -->
     <!-- jQuery -->
     <!-- jQuery -->
-    <script src="/AdminLTE-3.0.2/plugins/jquery/jquery.min.js"></script>
+    <script src="~/AdminLTE-3.0.2/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="/AdminLTE-3.0.2/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/AdminLTE-3.0.2/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
-    <script src="/AdminLTE-3.0.2/bower_components/fastclick/lib/fastclick.js"></script>
-    <script src="/AdminLTE-3.0.2/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/AdminLTE-3.0.2/plugins/select2/js/select2.min.js"></script>
+    <script src="~/AdminLTE-3.0.2/bower_components/fastclick/lib/fastclick.js"></script>
+    <script src="~/AdminLTE-3.0.2/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- DataTables -->
-    <script src="/AdminLTE-3.0.2/plugins/datatables/jquery.dataTables.js"></script>
-    <script src="/AdminLTE-3.0.2/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/DataTables-1.10.20/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/DataTables-1.10.20/media/js/dataTables.bootstrap4.js"></script>
+    <script src="~/js/moment.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="/AdminLTE-3.0.2/dist/js/adminlte.min.js"></script>
+    <script src="~/AdminLTE-3.0.2/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="/AdminLTE-3.0.2/dist/js/demo.js"></script>
+    <script src="~/AdminLTE-3.0.2/dist/js/demo.js"></script>
     <!-- AdminLTE for demo purposes -->
 
+    <script src="~/jquery-toast-plugin-master/dist/jquery.toast.min.js"></script>
+    <script src="~/js/site.js"></script>
     @RenderSection("ScriptsLinks", required: false)
 
 

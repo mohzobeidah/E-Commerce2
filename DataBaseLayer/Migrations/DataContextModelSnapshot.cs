@@ -111,43 +111,35 @@ namespace DataBaseLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ArabicName")
-                        .HasColumnType("VARCHAR(250)");
+                    b.Property<string>("ArabicName");
 
                     b.Property<int>("CategoryId");
 
                     b.Property<float>("Disaccunt");
 
-                    b.Property<string>("EnglishName")
-                        .HasColumnType("VARCHAR(250)");
+                    b.Property<string>("EnglishName");
 
-                    b.Property<string>("FrenchName")
-                        .HasColumnType("VARCHAR(250)");
+                    b.Property<string>("FrenchName");
 
-                    b.Property<string>("IPAdress")
-                        .HasColumnType("VARCHAR(250)");
+                    b.Property<string>("IPAdress");
 
                     b.Property<DateTime?>("InsertDate");
 
-                    b.Property<string>("InsertUser")
-                        .HasColumnType("VARCHAR(250)");
+                    b.Property<string>("InsertUser");
 
                     b.Property<bool>("IsDelete");
 
                     b.Property<float>("Price");
 
-                    b.Property<string>("ProductImageLink")
-                        .HasColumnType("VARCHAR(250)");
+                    b.Property<string>("ProductImageLink");
 
-                    b.Property<string>("ProductImageName")
-                        .HasColumnType("VARCHAR(250)");
+                    b.Property<string>("ProductImageName");
 
                     b.Property<int>("Quantity");
 
                     b.Property<DateTime?>("UpdateDate");
 
-                    b.Property<string>("UpdateUser")
-                        .HasColumnType("VARCHAR(250)");
+                    b.Property<string>("UpdateUser");
 
                     b.HasKey("Id");
 
@@ -188,6 +180,8 @@ namespace DataBaseLayer.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<string>("Country");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
