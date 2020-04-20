@@ -1,29 +1,30 @@
-﻿using System;
+﻿using DataBaseLayer.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace DataBaseLayer.Models
+namespace DataAccessLayer.ViewModel
 {
-   public class Product
+    public class ProductVM
     {
         public int Id { get; set; }
         //[Column(TypeName = "VARCHAR(250)")]
-          
+
         public String ArabicName { get; set; }
         //[Column(TypeName = "VARCHAR(250)")]
-          
+
         public String FrenchName { get; set; }
         //[Column(TypeName = "VARCHAR(250)")]
-          
+
         public String EnglishName { get; set; }
         public int Quantity { get; set; }
 
         public float Price { get; set; }
         public float Disaccunt { get; set; }
-  
-        
+
+
         public bool IsAvaible { get; set; }
         public bool IsShpping { get; set; }
 
@@ -42,19 +43,19 @@ namespace DataBaseLayer.Models
 
         public String IPAdress { get; set; }
         //[Column(TypeName = "VARCHAR(250)")]
-          
-       // public string ProductImageLink { get; set; }
+
+        // public string ProductImageLink { get; set; }
         //[Column(TypeName = "VARCHAR(250)")]
-          
-       // public string ProductImageName { get; set; }
+
+        // public string ProductImageName { get; set; }
         public int CategoryId { get; set; }
-        [ForeignKey(nameof(CategoryId))]
-        public Category category { get; set; }
+      
+        public SelectList categoryList { get; set; }
 
+        public IFormFile files { get; set; }
+        public List<ProductPicture> ProductPictures { get; set; } = new List<ProductPicture>();
 
-        public ICollection<ProductPicture> ProductPictures { get; set; }
-
-        public ICollection<Tag_Product> tag_Products { get; set; }
+        public List<Tag_Product> tag_Products { get; set; } = new List<Tag_Product>();
 
         /// <summary>
         /// ///////////////////////////////////
@@ -67,6 +68,7 @@ namespace DataBaseLayer.Models
         public string UpdateUser { get; set; }
         public DateTime? UpdateDate { get; set; }
         public bool IsDelete { get; set; }
+
 
     }
 }

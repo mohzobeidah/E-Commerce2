@@ -25,6 +25,9 @@ namespace DataBaseLayer.Data
         public DbSet<Loginlog> LoginLogs { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductPicture> productPictures { get; set; }
+        public DbSet<Tag> tags { get; set; }
+        public DbSet<Tag_Product> tag_Product { get; set; }
 
 
         #region save changes methods

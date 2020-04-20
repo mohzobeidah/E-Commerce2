@@ -1,4 +1,4 @@
-﻿
+﻿@model DataAccessLayer.ViewModel.ProductVM
 @{
     ViewData["Title"] = "AddNewProduct";
 }
@@ -10,6 +10,10 @@
 
     .select2 {
         padding: 5px;
+    }
+
+    .disableTab {
+        pointer-events: none;
     }
 </style>
 
@@ -23,49 +27,48 @@
                     <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="false">Default Details in English</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">Arabic Details</a>
+                    <a class="nav-link @(Model.Id==0?"disableTab":"")" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">Arabic Details</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " id="custom-tabs-three-messages-tab" data-toggle="pill" href="#custom-tabs-three-messages" role="tab" aria-controls="custom-tabs-three-messages" aria-selected="true">French Details</a>
+                    <a class="nav-link  @(Model.Id==0?"disableTab":"")" id="custom-tabs-three-messages-tab" data-toggle="pill" href="#custom-tabs-three-messages" role="tab" aria-controls="custom-tabs-three-messages" aria-selected="true">French Details</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="custom-tabs-three-settings-tab" data-toggle="pill" href="#custom-tabs-three-settings" role="tab" aria-controls="custom-tabs-three-settings" aria-selected="false">Garllary</a>
+                    <a class="nav-link  @(Model.Id==0?"disableTab":"")" id="custom-tabs-three-settings-tab" data-toggle="pill" href="#custom-tabs-three-settings" role="tab" aria-controls="custom-tabs-three-settings" aria-selected="false">Garllary</a>
                 </li>
             </ul>
         </div>
         <div class="card-body">
-            <div class="tab-content" id="custom-tabs-three-tabContent">
-                <div class="tab-pane fade  active show" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
-                    <form role="form">
+            <form method="post"  asp-action="AddNewProduct" asp-controller="Product" asp-area="Admin" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed" enctype="multipart/form-data"> 
+                <div class="tab-content" id="custom-tabs-three-tabContent">
+
+                    <div class="tab-pane fade  active show" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
+
                         <div class="card-body">
 
+
+                            <input type="hidden" asp-for="@Model.Id" id="productID" />
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <img class="form-control" width="100%" style="height:300px;" />
-                                        <input type="file" name="name" value="" class="" />
+                                        <img class="form-control" id="defaultImg" alt="product image" src="@(Model.files == null?"/ProductImage/no_images.png":$"~/ProductImage/{Model.files.FileName}")" width="100%" style="height:300px;" />
+                                        <input type="file" asp-for="@Model.files" onchange="readURL(this);" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-7">
                                     <div class="form-group">
                                         <label>Category</label>
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">Alabama</option>
-                                            <option>Alaska</option>
-                                            <option>California</option>
-                                            <option>Delaware</option>
-                                            <option>Tennessee</option>
-                                            <option>Texas</option>
-                                            <option>Washington</option>
+                                        <select class="form-control select2" asp-for="@Model.CategoryId" asp-items="@Model.categoryList" style="width: 100%;">
+                                            <option selected="selected">---Choose---</option>
+
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Name of Product</label>
-                                        <input type="text" class="form-control" id="" placeholder="Enter email">
+                                        <input type="text" class="form-control" asp-for="@Model.EnglishName" id="" placeholder="Enter email">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Important Details</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                        <input type="text" class="form-control" asp-for="@Model.EnImportantDetails" id="" placeholder="Password">
                                     </div>
                                     <div class="row">
 
@@ -90,26 +93,26 @@
                                 <div class="col-md-2 border">
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Price </label>
-                                        <p><input type="number" class="form-control col-md-10" id="" style="display:inline-block" placeholder=""> <strong class="text-center">$</strong></p>
+                                        <p><input type="number" class="form-control col-md-10" asp-for="@Model.Price" id="" style="display:inline-block" placeholder=""> <strong class="text-center">$</strong></p>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Disaccount</label>
-                                        <p><input type="number" class="form-control col-md-10" id="" style="display:inline-block" placeholder=""> <strong class="text-center">%</strong></p>
+                                        <p><input type="number" class="form-control col-md-10" id="" asp-for="@Model.Disaccunt" style="display:inline-block" placeholder=""> <strong class="text-center">%</strong></p>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Qunantity</label>
-                                        <p><input type="number" class="form-control col-md-10" id="" style="display:inline-block" placeholder=""> <strong class="text-center">NO</strong></p>
+                                        <p><input type="number" class="form-control col-md-10" asp-for="@Model.Quantity" id="" style="display:inline-block" placeholder=""> <strong class="text-center">NO</strong></p>
                                     </div>
                                     <div class="dropdown-divider"></div>
                                     <div class="form-group">
                                         <label> Availbity </label>
-                                        <input type="checkbox" name="r1" class="minimal" style="float:right" checked>
+                                        <input type="checkbox" class="minimal" asp-for="@Model.IsAvaible" style="float:right" checked>
                                     </div>
                                     <div class="form-group">
                                         <label> Shyipping  </label>
-                                        <input type="checkbox" name="r1" class="minimal" style="float:right" checked>
+                                        <input type="checkbox" class="minimal" asp-for="@Model.IsShpping" style="float:right" checked>
                                     </div>
                                     <div class="dropdown-divider"></div>
 
@@ -124,7 +127,7 @@
                             <div class="form-group">
                                 <label for="exampleInputFile">Detalis about Product</label>
 
-                                <textarea id="editor1" name="editor1" rows="30" cols="80">
+                                <textarea id="editor1" asp-for="@Model.EnglishDetails" rows="30" cols="80">
                                          
                     </textarea>
 
@@ -136,74 +139,85 @@
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
-                    </form>
-                </div>
-                <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
-                    <div class="card-body">
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Name of Product</label>
-                                    <input type="text" class="form-control" id="" placeholder="Enter email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Important Details</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputFile">Detalis about Product</label>
+                    </div>
+                    <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
+                        <div class="card-body">
 
-                                    <textarea id="editor2" name="editor1" rows="30" cols="80">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Name of Product</label>
+                                        <input type="text" asp-for="@Model.ArabicName" class="form-control" id="" placeholder="Enter email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Important Details</label>
+                                        <input type="text" asp-for="@Model.ArImportantDetails" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">Detalis about Product</label>
+
+                                        <textarea id="editor2" asp-for="@Model.ArabicDetails" rows="30" cols="80">
                                          
                     </textarea>
 
-                                </div>
+                                    </div>
 
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="tab-pane fade" id="custom-tabs-three-messages" role="tabpanel" aria-labelledby="custom-tabs-three-messages-tab">
-                    <div class="card-body">
+                    <div class="tab-pane fade" id="custom-tabs-three-messages" role="tabpanel" aria-labelledby="custom-tabs-three-messages-tab">
+                        <div class="card-body">
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Name of Product</label>
-                                    <input type="text" class="form-control" id="" placeholder="Enter email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Important Details</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputFile">Detalis about Product</label>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Name of Product</label>
+                                        <input type="text" asp-for="@Model.FrenchName" class="form-control" id="" placeholder="Enter email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Important Details</label>
+                                        <input type="text" asp-for="@Model.FrImportantDetails" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">Detalis about Product</label>
 
-                                    <textarea id="editor3" name="editor1" rows="30" cols="80">
+                                        <textarea id="editor3" asp-for="@Model.FrenchDetails" rows="30" cols="80">
                                          
                     </textarea>
 
+                                    </div>
+
                                 </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="tab-pane fade" id="custom-tabs-three-settings" role="tabpanel" aria-labelledby="custom-tabs-three-settings-tab">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div 
+                                          class="dropzone"
+                                          id="mydropzone" >
+
+                                       
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="custom-tabs-three-settings" role="tabpanel" aria-labelledby="custom-tabs-three-settings-tab">
-                    <div class="card-body">
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <form action="/file-upload"
-                                      class="dropzone"
-                                      id="my-awesome-dropzone"></form>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
         <!-- /.card -->
     </div>
@@ -222,8 +236,9 @@
 
     <script src="~/ckeditor5/build/ckeditor.js"></script>
     <script src="~/dropzone-5.7.0/dist/min/dropzone.min.js"></script>
+    <script src="~/lib/jquery/jquery.unobtrusive-ajax.js"></script>
 
-    <script src="~/dropzone-5.7.0/dist/min/dropzone-amd-module.min.js"></script>
+
 }
 @section Scripts {
 
@@ -311,9 +326,6 @@
                 .then(editor => {
                     window.editor = editor;
 
-
-
-
                 })
                 .catch(error => {
                     console.error('Oops, something gone wrong!');
@@ -367,24 +379,162 @@
                     console.warn('Build id: 82m1nfpzaxh-qrolc6ajm7ow');
                     console.error(error);
                 });
+
         })
     </script>
 
     <script>
-        $(function () {
-            Dropzone.options.myAwesomeDropzone = {
-                paramName: "file", // The name that will be used to transfer the file
-                maxFilesize: 2, // MB
-                accept: function (file, done) {
-                    if (file.name == "justinbieber.jpg") {
-                        done("Naha, you don't.");
-                    }
-                    else { done(); }
-                }
-            };
+        //$(function () {
+        //Dropzone.options.attachment = {
+           
+        //    paramName: "file", // The name that will be used to transfer the file
+        //    maxFiles: 3,
+        //    maxFilesize: 8,
+        //    params: { 'prodectId': $('#Id').val()},
+        //        addRemoveLinks: true,
+        //        removedfile: function (file) {
+        //            var name = file.name;
+        //            $.ajax({
+        //                type: 'POST',
+        //                url: '/admin/Products/deleteImage',
+        //                data: "id=" + name,
+        //                dataType: 'html'
+        //            });
+        //            var _ref;
+        //            return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+        //        },
+        //        init: function () {
+        //            this.on("sending", function (file, xhr, formData) {
+        //                formData.append("productId", $('#Id').val());
+        //            });
+        //            this.on("success", function (file, result) {
+        //                // Handle the responseText here. For example, add the text to the preview element:
+        //               // file.previewElement.querySelector("img").src = result.filename;
+        //               file.previewTemplate.appendChild(document.createTextNode(result.filename));
+        //               // var result = response.responseJSON
+        //                $.toast({
+        //                    heading: result.color,
+        //                    text: result.msg,
+        //                    showHideTransition: 'slide',
+        //                    icon: result.color
+        //                })
+        //                    ;
+
+        //            });
+        //        },
+        //        accept: function (file, done) {
+        //            var re = /(?:\.([^.]+))?$/;
+        //            var ext = re.exec(file.name)[1];
+        //            ext = ext.toUpperCase();
+        //            if (ext == "JPG" || ext == "JPEG" || ext == "PNG" || ext == "GIF" || ext == "BMP") {
+        //                done();
+        //            } else {
+        //                done("Please select only supported picture files.");
+        //            }
+        //        }
+
+        //    };
 
 
+     
+
+        //    var myDropzone = new Dropzone("div#mydropzone", { url: '/admin/Products/SaveGallery' });
+        //});
+        Dropzone.autoDiscover = false;
+
+        // Dropzone class:
+        var myDropzone = new Dropzone("div#mydropzone", {
+            url: "/admin/Products/SaveGallery",
+            paramName: "file", // The name that will be used to transfer the file
+            maxFiles: 10,
+            maxFilesize: 8,
+        
+             addRemoveLinks: true,
+            removedfile: function (file) {
+                console.log(file);
+                var name = file.previewElement.lastChild.nodeValue;
+                    $.ajax({
+                        type: 'POST',
+                        url: '/admin/Products/deleteImage',
+                        data: "id=" + name,
+                        dataType: 'html'
+                    });
+                    var _ref;
+                    return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+                },
+                init: function () {
+                    this.on("sending", function (file, xhr, formData) {
+                        formData.append("productId", $('#productID').val());
+                    });
+                    this.on("success", function (file, result) {
+                        // Handle the responseText here. For example, add the text to the preview element:
+                        //file.previewElement.querySelector("img").src = result.filename;
+                        file.previewTemplate.appendChild(document.createTextNode(result.filename));
+                        
+                        $.toast({
+                            heading: result.color,
+                            text: result.msg,
+                            showHideTransition: 'slide',
+                            icon: result.color
+                        }) ;
+
+                    });
+                },
+                //accept: function (file, done) {
+                //    var re = /(?:\.([^.]+))?$/;
+                //    var ext = re.exec(file.name)[1];
+                //    ext = ext.toUpperCase();
+                //    if (ext == "JPG" || ext == "JPEG" || ext == "PNG" || ext == "GIF" || ext == "BMP") {
+                //        done();
+                //    } else {
+                //        done("Please select only supported picture files.");
+                //    }
+                //}
         });
 
+       
+    </script>
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#defaultImg').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        completed = function (response) {
+            var result = response.responseJSON
+            console.log(response.responseJSON)
+            if (result.objectID>0) {
+                $('#productID').val(result.objectID)
+                $('.disableTab').removeClass('disableTab'); 
+
+            }
+            $.toast({
+                heading: result.color,
+                text: result.msg,
+                showHideTransition: 'slide',
+                icon: result.color
+            })
+                ;
+
+            //clearForm("#addCategory");
+        };
+
+        failureAdd = function (jqXHR, status) {
+            $.toast({
+                heading: 'Error',
+                text: 'Uncaught Error.\n' + jqXHR.responseText,
+                showHideTransition: 'fade',
+                icon: 'error'
+            })
+        };
     </script>
 }
+

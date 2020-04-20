@@ -4,6 +4,7 @@ using DataBaseLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 
 namespace DataAccessLayer.Repository
@@ -32,5 +33,14 @@ namespace DataAccessLayer.Repository
                 data = data.OrderByDescending(x => x.InsertDate).Skip(initalPage).Take(pageSize);
                 return data;
             }
+
+
+
+       //public IQueryable<Category> GetCategories()
+       // {
+
+       //     get
+       // }
+
     }
 }

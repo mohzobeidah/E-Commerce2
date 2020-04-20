@@ -16,9 +16,10 @@ namespace E_Commerce2.Servcies
             {
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
             services.AddScoped<ICategoryService, CategoryService>();
-          //  services.AddScoped<User, User>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductPictureService, ProductPictureService>();
+            //  services.AddScoped<User, User>();
         }
     }
 }

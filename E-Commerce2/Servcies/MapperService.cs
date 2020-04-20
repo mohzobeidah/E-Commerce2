@@ -13,6 +13,9 @@ namespace E_Commerce2.Servcies
         public MapperService()
         {
             CreateMap<Category, CategoryVM>().ReverseMap();
+            CreateMap<Product, ProductVM>().ReverseMap();
+            CreateMap<ProductPicture, ProductImageVM>().ReverseMap();
+
         }
     }
   }

@@ -24,7 +24,6 @@ namespace E_Commerce2.Controllers
             if (_accessor.HttpContext.User.Identity.IsAuthenticated)
             {
                 USERNAME = _accessor.HttpContext.User.Identity.Name;
-
                 IpAddresss=_accessor.HttpContext.Connection.RemoteIpAddress.ToString();
             }
         }

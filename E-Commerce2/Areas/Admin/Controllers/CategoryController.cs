@@ -65,7 +65,7 @@ namespace E_Commerce2.Areas.Admin.Controllers
                 model.InsertUser = USERNAME;
                 model.InsertDate = DateTime.UtcNow;
                 model.IPAdress =IpAddresss;
-                var result = await _categoryService.AddAsync(_mapper.Map<Category>(model));
+                var result = await _categoryService.AddAndLogAsync(_mapper.Map<Category>(model),USERNAME);
 
                 if (result > 0)
                 {
