@@ -4,6 +4,8 @@ using DataBaseLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Drawing;
+
 
 namespace DataAccessLayer.Repository
 {
@@ -11,7 +13,13 @@ namespace DataAccessLayer.Repository
     {
         public ProductPictureService(DataContext dataContext):base(dataContext)
         {
+            
+        }
+        public void dd()
+        {
+            // var imgFile = Image.FromFile("wwwroot\\Images\\picture.jpg");
 
+           
         }
     }
 }

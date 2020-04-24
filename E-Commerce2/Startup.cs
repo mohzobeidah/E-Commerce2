@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ReflectionIT.Mvc.Paging;
 
 namespace E_Commerce2
 {
@@ -43,6 +44,7 @@ namespace E_Commerce2
            .AddEntityFrameworkStores<DataContext>()
              .AddDefaultTokenProviders();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddPaging();
             services.ConfigureApplicationCookie(options =>
             {
 
