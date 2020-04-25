@@ -1,7 +1,303 @@
 ﻿
-@{
-    ViewData["Title"] = "Products";
+@{ ViewData["Title"] = "Index"; }
+
+<h1>عرض المنتجات</h1>
+
+
+<style>
+
+    #ProductTable_filter {
+        text-align: end;
+    }
+    .table {
+        font-size: 18px;
+    }
+    .img {
+        width: 128px;
+    }
+</style>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Control Panel for  Products </h3>
+        @*<button type="button" id="addNewProduct"onclick="addNewProduct()" class="btn btn-outline-info" style="float:right;">
+                Add new Product
+            </button>*@
+        <a href="@Url.Action("AddNewProduct","products")" class="btn btn-primary" style="float:right;">
+            Add new Product
+        </a>
+
+    </div>
+
+
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table class="table table-striped" id="ProductTable">
+            <thead>
+                <tr>
+                    <th scope="col">ST</th>
+                    <th scope="col">#</th>
+                    <th scope="col" width="10%"> Image</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Price </th>
+                    @*<th scope="col">Quantity </th>
+                        <th scope="col">DisCount</th>*@
+                    <th scope="col"> Date</th>
+                    <th scope="col"> Details</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div id="test"></div>
+    </div>
+    <!-- /.card-body -->
+</div>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Action
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+        </div>
+    </div>
+    <!-- /btn-group -->
+</div>
+@*<a target="_blank"></a>*@
+@*<partial name="_AddProduct" />*@
+
+@section CssLinks
+{
+    <link href="~/DataTables-1.10.20/media/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/AdminLTE-3.0.2/plugins/icheck-bootstrap/icheck-bootstrap.min.css" rel="stylesheet" />
+
 }
 
-<h1>Products</h1>
+@section ScriptsLinks
+{
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>*@
 
+
+    <script src="~/DataTables-1.10.20/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/DataTables-1.10.20/media/js/dataTables.bootstrap4.js"></script>
+    <script src="~/js/moment.min.js"></script>
+}
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        completed = function (resp) {
+            $('#test').empty();
+            if (resp.responseText !== "" && resp.responseText !== "undifined" && resp.responseText !== null) {
+
+                var $html = resp.responseText;
+                $('#test').html($html);
+                $('.modal').modal('show');
+            }
+        };
+
+        $(document).ready(function () {
+            //$(".AddProduct").click(function () {
+            //    $('#modalAddProduct').modal('show');
+            //});
+            function addNewProduct() {
+                $.get("/Admin/products/AddNewProduct", function (data, status) {
+
+                });
+            }
+            $("#add").click(function () {
+                $.get("/Admin/products/AddNewProduct", function (data, status) {
+
+                });
+                alert("sssssssssssss");
+
+                //$.ajax({
+                //type:'get',
+                //    url: '/Admin/products/AddNewProduct',
+                //});
+            });
+            var table = $("#ProductTable");
+
+            $(document).ready(function () {
+                BindDataTable();
+            })
+            $('#SearchName').click(function () {
+                BindDataTable.ajax.reload();
+
+            });
+            var BindDataTable = function (response) {
+
+                table.DataTable({
+                    "destroy": true,
+                    "bServerSide": true,
+                    "sSearch": "Search all columns:",
+                    "sAjaxSource": "/Admin/Products/GetProduct",
+                    //"aaSorting": [[0, "desc"]],
+                    "processing": "true",
+                    // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+                    "language": {
+                        //"aria": {
+                        //    "sortAscending": ": تفعيل لترتيب العمود تصاعدياً",
+                        //    "sortDescending": ": تفعيل لترتيب العمود تنازلياً"
+                        //},
+                        "emptyTable": "لا يوجد بيانات",
+                        "info": "عرض _START_ إلى _END_ من _TOTAL_ صفوف",
+                        "infoEmpty": "لم يتم العثور على نتائج",
+                        "infoFiltered": "(filtered1 من _MAX_ العدد الكلي)",
+                        "lengthMenu": "_MENU_ اظهار",
+                        "search": "بحث:",
+                        "processing": '<h1>جاري جلب البيانات ...</h1>',
+                        "zeroRecords": "لم يتم العثور على عناصر مطابقة",
+                        "oPaginate": {
+                            "sFirst": "الأول",
+                            "sPrevious": "السابق",
+                            "sNext": "التالي",
+                            "sLast": "الأخير"
+                        },
+                    },
+                    aoData: {
+                        "data": function (d) {
+                            return $.extend({}, d, RefrechParam([
+                                //{ paramId: 'job', inputId: 'job' },
+                                //{ paramId: 'FullName', inputId: 'FullName' },
+                                //{ paramId: 'User_ID', inputId: 'hdnUserID_Search' }
+                            ]));
+                        },
+                    },
+                    "fnServerData": function (sSource, aoData, fnCallback) {
+
+                        $.ajax({
+
+                            type: "post",
+                            data: aoData,
+                            url: sSource,
+                            success: fnCallback
+                        })
+
+                    },
+                    "aoColumns": [
+                        {
+                            data: "ST",
+                            searchable: false,
+                            sortable: false,
+                            className: "text-center",
+                            render: function (data, type, row) {
+                                if (type === 'display') {
+                                    return '<input type="checkbox" class="editor-active">';
+                                }
+                                return data;
+                            }
+
+                        },
+                        {
+                            data: null, render: function (data, type, row, iDisplayIndex) {
+                                return (iDisplayIndex.row + 1);
+                            }
+
+                        },
+                        {
+                            "width": '10%',
+                            "render": function (data, type, JsonResultRow, meta) {
+                                console.table(JsonResultRow)
+                                console.table(data)
+                                return '<img class="img" src="/ProductImage/' + JsonResultRow.picPath + '">';
+                            }
+                        },
+                        { data: "name" },
+                        { data: "price" },
+                        //{ data: "quantity" },
+                        //{ data: "disaccunt" },
+                        {
+                            data: null, render: function (data, type, row) {
+                                var date = new Date(data.InsertUser);
+                                return moment(data.InsertUser).format("DD-MM-YYYY");
+                            }
+                        },
+                        {
+                            data: null, render: function (data, type, row) {
+                                return  '<div class="input-group mb-3">'+
+                                    '<div class="input-group-prepend">'+
+                                    '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Action</button>' +
+                                    '<div class="dropdown-menu">'+
+                                    '<a class="dropdown-item btn btn-outline-info" target="_blank"  href="/Admin/Products/AddNewProduct/' + data.id + '">Action</a>' +
+                                '<a class="dropdown-item" href="#">Another action</a>' +
+                                '<a class="dropdown-item" href="#">Something else here</a>' +
+                                '<div class="dropdown-divider"></div>' +
+                                '<a class="dropdown-item" href="#">Separated link</a>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' 
+                                //return '<div class="btn-group">' +
+                                //    '<button type="button" class="btn btn-info btn-flat">Actions</button>' +
+                                //    '<button type="button" class="btn btn-info btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">' +
+                                //    '<span class="sr-only">Toggle Dropdown</span>' +
+                                //    ' <div class="dropdown-menu" role="menu">' +
+                                //    '<a class="dropdown-item btn btn-info" target="_blank"  href="javascript:void(alert("sssss"))" >Update</a>' +
+                                //    ' <a class="dropdown-item" href="#">Delete</a>' +
+                                //    ' <a class="dropdown-item" href="#">Details</a>' +
+                                //    ' </div>' +
+                                //    '</button>' +
+                                //    ' </div>'
+                                //  return '<a class="btn-group"><a href="/Admin/Product/Details/' + data.id + '" class="btn red btn-sm btn-outline btnActivation sbold" style="margin-left: 5px;" title="عرض تفاصيل"><i class="fa fa-edit fa-address-card-o"></i> عرض تفاصيل </a>'
+                                //     + '<a data-ajax="true" data-ajax-method="get" data-ajax-complete="completed" data-ajax-failure ="failure"  class="btn blue btn-sm btn-outline sbold AddProduct" style="margin-left: 5px;" title=" نقل"> <i class="fa fa-edit fa-fw"></i> Add Product</a></div>'
+                                //+ '<a href="AddEditUser?UserID=' + data.id + '" class="btn blue btn-sm btn-outline sbold" style="margin-left: 5px;" title=" تعديل"> <i class="fa fa-edit fa-fw"></i> تعديل</a></div>'
+                                //+ '<a href=/Quarantine/AddPersonMovement?id=' + data.id + '    data-ajax="true" data-ajax-method="get" data-ajax-complete="completed" data-ajax-failure ="failure"  class="btn blue btn-sm btn-outline sbold" style="margin-left: 5px;" title=" نقل"> <i class="fa fa-edit fa-fw"></i> نقل نزيل</a></div>'
+                                // +'<a class="AddProduct"> Add Product</a>'
+
+                            }
+                        }
+
+                    ], "rowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+
+
+                    }, "drawCallback": function (settings) {
+
+                        //if (typeof DrawCallbackFunction === "function") {
+                        //    DrawCallbackFunction();
+
+                        //}
+                        //$('#ProductTable').on('click', 'a.AddProduct', function () {
+                        //    $('#modalAddProduct').modal('show');
+                        //});
+
+                    },
+
+                });
+
+
+            }
+
+
+
+
+        });
+        completedAdd = function (response) {
+            var result = response.responseJSON
+            console.log(response.responseJSON)
+            $.toast({
+                heading: result.color,
+                text: result.msg,
+                showHideTransition: 'slide',
+                icon: result.color
+            })
+        };
+
+        failureAdd = function (jqXHR, status) {
+            $.toast({
+                heading: 'Error',
+                text: 'Uncaught Error.\n' + jqXHR.responseText,
+                showHideTransition: 'fade',
+                icon: 'error'
+            })
+        };
+
+    </script>
+
+}

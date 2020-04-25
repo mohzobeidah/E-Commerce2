@@ -50,6 +50,10 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
+                                        @if (Model.ProductPictures != null)
+                                        {
+                                        <img class="form-control" id="defaultImg" alt="product image" src="/ProductImage/@Model.ProductPictures.Where(x=>x.DefaultPicture==true).FirstOrDefault().Name" width="100%" style="height:300px;" />
+                                        }
                                         <img class="form-control" id="defaultImg" alt="product image" src="@(Model.files == null?"/ProductImage/no_images.png":$"~/ProductImage/{Model.files.FileName}")" width="100%" style="height:300px;" />
                                         <input type="file" asp-for="@Model.files" onchange="readURL(this);" class="form-control" />
                                     </div>
