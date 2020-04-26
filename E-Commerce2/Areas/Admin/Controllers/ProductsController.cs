@@ -10,6 +10,7 @@ using DataAccessLayer.IRepository;
 using DataAccessLayer.ViewModel;
 using DataBaseLayer.Models;
 using E_Commerce2.Controllers;
+using E_Commerce2.Helper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -45,15 +46,72 @@ namespace E_Commerce2.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult AddNewProduct()
-        {
 
+        [HttpPost]
+        public IActionResult GetProduct(DataTablesParam param)
+        {
+            int totalNo = 0, recordFilter = 0;
+            var productList = productService.GetPage(
+                                    param.sSearch,
+                                    param.iDisplayStart,
+                                    param.iDisplayLength,
+                                    out totalNo,
+                                    out recordFilter
+                                    );
+          var newProductList = productList.Select(x => new
+            { id= x.Id,
+                name = x.EnglishName,
+                picPath = x.ProductPictures.Where(y => y.DefaultPicture == true).FirstOrDefault().Name,
+                price = x.Price
+            });
+            
+                    
+            return Json(new
+            {
+                data = newProductList,
+                eEcho = param.sEcho,
+                iTotalDisplayRecords = recordFilter,
+                iTotalRecords = totalNo
+            });
+        }
+        public IActionResult AddNewProduct(int id)
+        
+        {
+            if (id==0)
+            {
             var product = new ProductVM
             {
                 categoryList = new SelectList(categoryService.GetQueryable(x => x.IsDelete == false), "Id", "EnglishName"),
-
             };
             return View(product);
+            }
+            else
+            {
+
+                var getProduct = productService.getProductWithImage(id);
+
+            //     var newProductList = getProduct.Select(x => new
+            //    {
+            //        id = x.Id,
+            //         englishName = x.EnglishName,
+            //         arabicName = x.ArabicName,
+            //         frenchName = x.FrenchName,
+            //         picPath = x.ProductPictures.Where(y => y.DefaultPicture == true).FirstOrDefault().Name,
+            //         price = x.Price,
+            //         quantity = x.Quantity,
+            //         disaccunt = x.Disaccunt,
+            //         categoryList = new SelectList(categoryService.GetQueryable(p => p.IsDelete == false), "Id", "EnglishName"),
+
+            //});
+                var product = getProduct.FirstOrDefault();
+                var productvm = mapper.Map<ProductVM>(product);
+
+                productvm.categoryList = new SelectList(categoryService.GetQueryable(x => x.IsDelete == false), "Id", "EnglishName");
+                
+               
+                return View(productvm);
+            }
+            
 
 
 

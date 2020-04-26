@@ -31,8 +31,6 @@ namespace E_Commerce2.Areas.Admin.Controllers
 
         public IActionResult Categories()
         {
-
-
             return View();
         }
         [HttpPost]
@@ -50,45 +48,97 @@ namespace E_Commerce2.Areas.Admin.Controllers
             });
         }
 
-        public async Task<IActionResult> _Add()
+        public async Task<IActionResult> _Add(int id)
         {
-          //  _categoryService.AddAndLogAsync()
+            //  _categoryService.AddAndLogAsync()
+            if (id==0)
+            {
+                return PartialView("_Add");
+            }
 
-            return PartialView("_Add");
+
+            var getCategory = await _categoryService.GetAsync(x => x.Id == id);
+
+            var category = getCategory.FirstOrDefault();
+             
+            return PartialView("_Add",category);
         }
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task <JsonResult> AddCategories(CategoryVM model)
         {
-            if (ModelState.IsValid)
+            if (model.Id == 0)
             {
-                model.InsertUser = USERNAME;
-                model.InsertDate = DateTime.UtcNow;
-                model.IPAdress =IpAddresss;
-                var result = await _categoryService.AddAndLogAsync(_mapper.Map<Category>(model),USERNAME);
-
-                if (result > 0)
+                if (ModelState.IsValid)
                 {
-                    return Json(new
-                    {
-                        status = JsonStatus.Success,
-                        link = "جيد",
-                        color = NotificationColor.success.ToString().ToLower(),
-                        msg = "تم الحفظ نجاح"
-                    });
-                }
-                else
-                {
-                    return Json(new
-                    {
-                        status = JsonStatus.Error,
-                        link = "يوجد خطا",
-                        color = NotificationColor.error.ToString().ToLower(),
-                        msg = "يوجد خطا في عملية الحفظ"
-                    });
+                    model.InsertUser = USERNAME;
+                    model.InsertDate = DateTime.UtcNow;
+                    model.IPAdress = IpAddresss;
+                    var result = await _categoryService.AddAndLogAsync(_mapper.Map<Category>(model), USERNAME);
 
+                    if (result > 0)
+                    {
+                        return Json(new
+                        {
+                            status = JsonStatus.Success,
+                            link = "جيد",
+                            color = NotificationColor.success.ToString().ToLower(),
+                            msg = "تم الحفظ نجاح"
+                        });
+                    }
+                    else
+                    {
+                        return Json(new
+                        {
+                            status = JsonStatus.Error,
+                            link = "يوجد خطا",
+                            color = NotificationColor.error.ToString().ToLower(),
+                            msg = "يوجد خطا في عملية الحفظ"
+                        });
+
+                    }
                 }
             }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var getCategory = await _categoryService.GetAsync(x => x.Id == model.Id);
+                    var category = getCategory.FirstOrDefault();
+                    category.EnglishName= model.EnglishName;
+                    category.ArabicName =model.ArabicName ;
+                  category.FrenchName = model.FrenchName  ;
+
+                    category.UpdateUser = USERNAME;
+                    category.UpdateDate = DateTime.UtcNow;
+                    category.IPAdress = IpAddresss;
+                    var result = await _categoryService.AddAndLogAsync(category, USERNAME);
+
+                    if (result > 0)
+                    {
+                        return Json(new
+                        {
+                            status = JsonStatus.Success,
+                            link = "جيد",
+                            color = NotificationColor.success.ToString().ToLower(),
+                            msg = "تم الحفظ نجاح"
+                        });
+                    }
+                    else
+                    {
+                        return Json(new
+                        {
+                            status = JsonStatus.Error,
+                            link = "يوجد خطا",
+                            color = NotificationColor.error.ToString().ToLower(),
+                            msg = "يوجد خطا في عملية الحفظ"
+                        });
+
+                    }
+                }
+
+            }
+          
 
             // var errors = ModelState.Keys.Where(k => ModelState[k].Errors.Count > 0).Select(k => new { propertyName = k, errorMessage = ModelState[k].Errors[0].ErrorMessage });
             return Json(new

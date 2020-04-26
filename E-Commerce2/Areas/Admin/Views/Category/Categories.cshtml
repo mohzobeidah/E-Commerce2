@@ -19,7 +19,7 @@
 
     <!-- /.card-header -->
     <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped">
+        <table id="categoryTbl" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>#</th>
@@ -27,8 +27,9 @@
                     <th>English Name</th>
                     <th>French Name</th>
                     <th>Insert Date</th>
-                    <th>Insert User</th>
-                    <th>Is Deleted</th>
+                    @*<th>Insert User</th>
+                      <th>Is Deleted</th>*@
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -63,10 +64,10 @@
                 var result = response.responseJSON
                 console.log(response.responseJSON)
                 $.toast({
-                    heading: result.color,
-                    text: result.msg,
+                    heading: '',
+                    text:'تم الحفظ بنجاح',
                     showHideTransition: 'slide',
-                    icon: result.color
+                    icon: ''
                 })
                     ;
 
@@ -86,7 +87,11 @@
             //    alert(`Hi ${xhr.responseText}!`);
             //};
             $(function () {
-                var table = $("#example1");
+                $(".editCat").click(function () {
+                    $('#modal-default').modal('show');
+                });
+
+                var table = $("#categoryTbl");
 
 
                     $(document).ready(function () {
@@ -109,7 +114,27 @@
                             "aaSorting": [[0, "desc"]],
                             "processing": "true",
                             // Internationalisation. For more info refer to http://datatables.net/manual/i18n
-                        
+                          
+                            "language": {
+                                //"aria": {
+                                //    "sortAscending": ": تفعيل لترتيب العمود تصاعدياً",
+                                //    "sortDescending": ": تفعيل لترتيب العمود تنازلياً"
+                                //},
+                                "emptyTable": "لا يوجد بيانات",
+                                "info": "عرض _START_ إلى _END_ من _TOTAL_ صفوف",
+                                "infoEmpty": "لم يتم العثور على نتائج",
+                                "infoFiltered": "(filtered1 من _MAX_ العدد الكلي)",
+                                "lengthMenu": "_MENU_ اظهار",
+                                "search": "بحث:",
+                                "processing": '<h1>جاري جلب البيانات ...</h1>',
+                                "zeroRecords": "لم يتم العثور على عناصر مطابقة",
+                                "oPaginate": {
+                                    "sFirst": "الأول",
+                                    "sPrevious": "السابق",
+                                    "sNext": "التالي",
+                                    "sLast": "الأخير"
+                                },
+                            },
                             aoData: {
                                 "data": function (d) {
                                     return $.extend({}, d, RefrechParam([
@@ -122,7 +147,6 @@
                             "fnServerData": function (sSource, aoData, fnCallback) {
 
                                 $.ajax({
-
                                     type: "POST",
                                     data: aoData,
                                     url: sSource,
@@ -151,8 +175,20 @@
                                         return  moment(data.insertDate).format("DD-MM-YYYY hh:m");
                                     }
                                 },
-                                { data: "insertUser" },
-                                { data: "isDelete" },
+                                //{ data: "insertUser" },
+                                //{ data: "isDelete" },
+                                {
+                                    data: null, render: function (data, type, row) {
+
+
+                                        return'<a data-ajax="true" data-ajax-method="get" data-ajax-complete="completed" data-ajax-failure ="failure"  class="btn blue btn-sm btn-outline sbold editCat" style="margin-left: 5px;" title=" Edit/تعديل"> <i class="fa fa-edit fa-fw"></i> Edit</a></div>'
+
+                                        //+ '<a href="AddEditUser?UserID=' + data.id + '" class="btn blue btn-sm btn-outline sbold" style="margin-left: 5px;" title=" تعديل"> <i class="fa fa-edit fa-fw"></i> تعديل</a></div>'
+                                        //+ '<a href=/Quarantine/AddPersonMovement?id=' + data.id + '    data-ajax="true" data-ajax-method="get" data-ajax-complete="completed" data-ajax-failure ="failure"  class="btn blue btn-sm btn-outline sbold" style="margin-left: 5px;" title=" نقل"> <i class="fa fa-edit fa-fw"></i> نقل نزيل</a></div>'
+                                        // +'<a class="AddProduct"> Add Product</a>'
+
+                                    }
+                                }
 
                             ], "rowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 
@@ -163,7 +199,9 @@
                                 //    DrawCallbackFunction();
 
                                 //}
-
+                                $('#categoryTbl').on('click', 'a.editCat', function () {
+                                    $('#modal-default').modal('show');
+                                });
 
                             },
 
