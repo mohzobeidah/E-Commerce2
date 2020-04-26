@@ -150,7 +150,7 @@
                 var random = new Random();
                 int width = 720;
                 int height = 539;
-                var obj = Model.products[random.Next(Model.products.Count()) - 1];
+                var obj = Model.products[random.Next(Model.products.Count()) == 0 ? 0 : random.Next(Model.products.Count())];
                 var file2 = obj.ProductPictures.Where(x => x.DefaultPicture == true).ToList().FirstOrDefault().Name;
                 var newFile2 = $"{width}_{height}_{file2}";
                 if (file2 != null && !System.IO.File.Exists($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile2}"))
@@ -186,7 +186,7 @@
                 var random3 = new Random();
                 int width3 = 720;
                 int height3 = 539;
-                var obj3 = Model.products[random3.Next(Model.products.Count()) - 1];
+                var obj3 = Model.products[random3.Next(Model.products.Count()) == 0 ? 0: random3.Next(Model.products.Count())];
                 var file3 = obj3.ProductPictures.Where(x => x.DefaultPicture == true).ToList().FirstOrDefault().Name;
                 var newFile3 = $"{width3}_{height3}_{file3}";
                 if (file2 != null && !System.IO.File.Exists($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile3}"))

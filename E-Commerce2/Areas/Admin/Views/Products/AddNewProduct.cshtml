@@ -33,7 +33,7 @@
                     <a class="nav-link  @(Model.Id==0?"disableTab":"")" id="custom-tabs-three-messages-tab" data-toggle="pill" href="#custom-tabs-three-messages" role="tab" aria-controls="custom-tabs-three-messages" aria-selected="true">French Details</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  @(Model.Id==0?"disableTab":"")" id="custom-tabs-three-settings-tab" data-toggle="pill" href="#custom-tabs-three-settings" role="tab" aria-controls="custom-tabs-three-settings" aria-selected="false">Garllary</a>
+                    <a class="nav-link  @(Model==null && Model.Id==0?"disableTab":"")" id="custom-tabs-three-settings-tab" data-toggle="pill" href="#custom-tabs-three-settings" role="tab" aria-controls="custom-tabs-three-settings" aria-selected="false">Garllary</a>
                 </li>
             </ul>
         </div>
@@ -50,12 +50,16 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        @if (Model.ProductPictures != null)
+                                        @if (Model.ProductPictures.Count != 0)
                                         {
-                                        <img class="form-control" id="defaultImg" alt="product image" src="/ProductImage/@Model.ProductPictures.Where(x=>x.DefaultPicture==true).FirstOrDefault().Name" width="100%" style="height:300px;" />
+                                            <img class="form-control" id="defaultImg" alt="product image" src="/ProductImage/@Model.ProductPictures.Where(x=>x.DefaultPicture==true).FirstOrDefault().Name" width="100%" style="height:300px;" />
                                         }
-                                        <img class="form-control" id="defaultImg" alt="product image" src="@(Model.files == null?"/ProductImage/no_images.png":$"~/ProductImage/{Model.files.FileName}")" width="100%" style="height:300px;" />
-                                        <input type="file" asp-for="@Model.files" onchange="readURL(this);" class="form-control" />
+                                        else
+                                        {
+                                            <img class="form-control" id="defaultImg" alt="product image" src="@(Model.files == null?"/ProductImage/no_images.png":$"~/ProductImage/{Model.files.FileName}")" width="100%" style="height:300px;" />
+                                            <input type="file" asp-for="@Model.files" onchange="readURL(this);" class="form-control" />
+
+                                        }
                                     </div>
                                 </div>
                                 <div class="col-md-7">
