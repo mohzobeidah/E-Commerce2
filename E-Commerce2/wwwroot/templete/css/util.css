@@ -2346,7 +2346,13 @@
 /*[ Background ]
 -----------------------------------------------------------
 */
-.bgwhite {background-color: white;}
+/*.bgwhite {background-color: white;}*/
+.bgwhite {
+	background-image: url('/AboutIamge/beachsanbackgroundh5_409560.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
 .bgblack {background-color: black;}
 
 
@@ -2385,15 +2391,15 @@
 .hov-img-zoom img{
 	width: 100%;
 	-webkit-transition: all 0.6s;
-    -o-transition: all 0.6s;
-    -moz-transition: all 0.6s;
-    transition: all 0.6s;
+	-o-transition: all 0.6s;
+	-moz-transition: all 0.6s;
+	transition: all 0.6s;
 }
 .hov-img-zoom:hover img {
 	-webkit-transform: scale(1.1);
-  	-moz-transform: scale(1.1);
-  	-ms-transform: scale(1.1);
-  	-o-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	-o-transform: scale(1.1);
 	transform: scale(1.1);
 }
 
@@ -2418,51 +2424,51 @@
 */
 .trans-0-1 {
 	-webkit-transition: all 0.1s;
-    -o-transition: all 0.1s;
-    -moz-transition: all 0.1s;
-    transition: all 0.1s;
+	-o-transition: all 0.1s;
+	-moz-transition: all 0.1s;
+	transition: all 0.1s;
 }
 .trans-0-2 {
 	-webkit-transition: all 0.2s;
-    -o-transition: all 0.2s;
-    -moz-transition: all 0.2s;
-    transition: all 0.2s;
+	-o-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	transition: all 0.2s;
 }
 .trans-0-3 {
 	-webkit-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    transition: all 0.3s;
+	-o-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
 }
 .trans-0-4 {
 	-webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
 }
 .trans-0-5 {
 	-webkit-transition: all 0.5s;
-    -o-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    transition: all 0.5s;
+	-o-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	transition: all 0.5s;
 }
 .trans-0-6 {
 	-webkit-transition: all 0.6s;
-    -o-transition: all 0.6s;
-    -moz-transition: all 0.6s;
-    transition: all 0.6s;
+	-o-transition: all 0.6s;
+	-moz-transition: all 0.6s;
+	transition: all 0.6s;
 }
 .trans-0-9 {
 	-webkit-transition: all 0.9s;
-    -o-transition: all 0.9s;
-    -moz-transition: all 0.9s;
-    transition: all 0.9s;
+	-o-transition: all 0.9s;
+	-moz-transition: all 0.9s;
+	transition: all 0.9s;
 }
 .trans-1-0 {
 	-webkit-transition: all 1s;
-    -o-transition: all 1s;
-    -moz-transition: all 1s;
-    transition: all 1s;
+	-o-transition: all 1s;
+	-moz-transition: all 1s;
+	transition: all 1s;
 }
 
 
@@ -2926,9 +2932,9 @@
 	top: 50%;
 	left: 50%;
 	-webkit-transform: translate(-50%, -50%);
-  	-moz-transform: translate(-50%, -50%);
-  	-ms-transform: translate(-50%, -50%);
-  	-o-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 }
 
@@ -2937,9 +2943,9 @@
 	top: 0px;
 	left: 50%;
 	-webkit-transform: translateX(-50%);
-  	-moz-transform: translateX(-50%);
-  	-ms-transform: translateX(-50%);
-  	-o-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
 }
 
@@ -2948,9 +2954,9 @@
 	bottom: 0px;
 	left: 50%;
 	-webkit-transform: translateX(-50%);
-  	-moz-transform: translateX(-50%);
-  	-ms-transform: translateX(-50%);
-  	-o-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
 }
 
@@ -2959,9 +2965,9 @@
 	left: 0px;
 	top: 50%;
 	-webkit-transform: translateY(-50%);
-  	-moz-transform: translateY(-50%);
-  	-ms-transform: translateY(-50%);
-  	-o-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
 	transform: translateY(-50%);
 }
 
@@ -2970,9 +2976,9 @@
 	right: 0px;
 	top: 50%;
 	-webkit-transform: translateY(-50%);
-  	-moz-transform: translateY(-50%);
-  	-ms-transform: translateY(-50%);
-  	-o-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
 	transform: translateY(-50%);
 }
 
@@ -3742,7 +3748,7 @@ SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE
 */
 .bg1-pattern {
 	background-image: url(../images/icons/pattern1.png);
-  	background-repeat: repeat;
+	background-repeat: repeat;
 }
 
 
@@ -3873,9 +3879,9 @@ EFFECT   EFFECT   EFFECT   EFFECT   EFFECT   EFFECT  EFFECT
 	left: 0;
 	bottom: -1px;
 	-webkit-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    transition: all 0.3s;
+	-o-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
 }
 
 .effect1 input:focus + .effect1-line {
@@ -3937,10 +3943,10 @@ EFFECT   EFFECT   EFFECT   EFFECT   EFFECT   EFFECT  EFFECT
 ///////////////////////////////////////////////////////////
 */
 .gradient1 {
-    background: -webkit-linear-gradient(rgba(0,0,0,0.6) , rgba(0,0,0,0));
-    background: -o-linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0));
-    background: -moz-linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0));
-    background: linear-gradient(rgba(0,0,0,0.6) , rgba(0,0,0,0));
+	background: -webkit-linear-gradient(rgba(0,0,0,0.6) , rgba(0,0,0,0));
+	background: -o-linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0));
+	background: -moz-linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0));
+	background: linear-gradient(rgba(0,0,0,0.6) , rgba(0,0,0,0));
 }
 
 
@@ -3963,8 +3969,8 @@ EFFECT   EFFECT   EFFECT   EFFECT   EFFECT   EFFECT  EFFECT
 ///////////////////////////////////////////////////////////
 */
 .hov1:hover {
-    background-color: #e65540;
-  	color: white;
+	background-color: #e65540;
+	color: white;
 }
 
 .hov2:hover {
@@ -4007,14 +4013,14 @@ EFFECT   EFFECT   EFFECT   EFFECT   EFFECT   EFFECT  EFFECT
 ///////////////////////////////////////////////////////////
 */
 .parallax0 {
-    background-attachment: fixed;
-    background-position: center 0;
-    background-repeat: no-repeat;
-    background-size: cover;
+	background-attachment: fixed;
+	background-position: center 0;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .overlay0 {
-    background-color: rgba(0,0,0,0.2);
+	background-color: rgba(0,0,0,0.2);
 }
 
 

@@ -14,10 +14,11 @@ namespace E_Commerce2.Controllers
         protected string USERNAME;
         protected string IpAddresss;
 
-        public BaseController(IHttpContextAccessor accessor)
+        public    BaseController(IHttpContextAccessor accessor)
         {
             _accessor = accessor;
             checkUser();
+       
         }
         public void checkUser()
         {

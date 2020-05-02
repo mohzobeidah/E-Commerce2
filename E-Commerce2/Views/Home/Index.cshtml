@@ -7,27 +7,30 @@
 <section class="slide1">
     <div class="wrap-slick1">
         <div class="slick1">
-            <div class="item-slick1 item1-slick1" style="background-image: url(/ProductImage/ef63d2f2-7e43-4b96-982d-a96c5216dd17_photo.jfif);">
-                <div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
-                    <span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
-                        Women Collection 2018
-                    </span>
 
-                    <h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="fadeInUp">
-                        New arrivals
-                    </h2>
+            @foreach (var item in Model.products.Take(5))
+            {
+                var filePic = item.ProductPictures.Where(x => x.DefaultPicture == true).ToList().FirstOrDefault()?.Name;
+                var fileName = item?.EnglishName;
+                <div class="item-slick1 item1-slick1" style="background-image: url(/ProductImage/@filePic);">
+                    <div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
+                        
 
-                    <div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="zoomIn">
-                        <!-- Button -->     
-                        <a href="product.html" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
-                            Shop Now
-                        </a>
+                        <h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="fadeInUp">
+                           @fileName
+                        </h2>
+
+<div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="zoomIn">
+                            <!-- Button -->
+                            <a href="product.html" class="flex-c-m size2 bo-rad-23 s-text2  hov1 trans-0-4" style="background-color:#fff">
+                                Shop Now
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
 
-
-            <div class="item-slick1 item2-slick1" style="background-image: url(/ProductImage/f9402360-261c-46a9-afc9-23f2cedcc68d_photo.jfif);">
+                @*<div class="item-slick1 item2-slick1" style="background-image: url(/ProductImage/f9402360-261c-46a9-afc9-23f2cedcc68d_photo.jfif);">
                 <div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
                     <span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="rollIn">
                         Women Collection 2018
@@ -38,15 +41,15 @@
                     </h2>
 
                     <div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="slideInUp">
-                        <!-- Button -->
+                         Button
                         <a href="product.html" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
                             Shop Now
                         </a>
                     </div>
                 </div>
-            </div>
+            </div>*@
 
-            <div class="item-slick1 item3-slick1" style="background-image: url(/templete/images/master-slide-04.jpg)">
+                @*<div class="item-slick1 item3-slick1" style="background-image: url(/templete/images/master-slide-04.jpg)">
                 <div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
                     <span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="rotateInDownLeft">
                         Women Collection 2018
@@ -57,15 +60,15 @@
                     </h2>
 
                     <div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="rotateIn">
-                        <!-- Button -->
+                         Button
                         <a href="product.html" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
                             Shop Now
                         </a>
                     </div>
                 </div>
-            </div>
+            </div>*@
 
-        </div>
+            </div>
     </div>
 </section>
 
@@ -186,7 +189,7 @@
                 var random3 = new Random();
                 int width3 = 720;
                 int height3 = 539;
-                var obj3 = Model.products[random3.Next(Model.products.Count()) == 0 ? 0: random3.Next(Model.products.Count())];
+                var obj3 = Model.products[random3.Next(Model.products.Count()) == 0 ? 0 : random3.Next(Model.products.Count())];
                 var file3 = obj3.ProductPictures.Where(x => x.DefaultPicture == true).ToList().FirstOrDefault().Name;
                 var newFile3 = $"{width3}_{height3}_{file3}";
                 if (file2 != null && !System.IO.File.Exists($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile3}"))
@@ -227,37 +230,50 @@
     <div class="container">
         <div class="sec-title p-b-52">
             <h3 class="m-text5 t-center">
-                Our Blog
+               Other Products
             </h3>
         </div>
 
         <div class="row">
-            <div class="col-sm-10 col-md-4 p-b-30 m-l-r-auto">
-                <!-- Block3 -->
-                <div class="block3">
-                    <a href="blog-detail.html" class="block3-img dis-block hov-img-zoom">
-                        <img src="~/templete/images/blog-01.jpg" alt="IMG-BLOG">
-                    </a>
 
-                    <div class="block3-txt p-t-14">
-                        <h4 class="p-b-7">
-                            <a href="blog-detail.html" class="m-text11">
-                                Black Friday Guide: Best Sales & Discount Codes
-                            </a>
-                        </h4>
 
-                        <span class="s-text6">By</span> <span class="s-text7">Nancy Ward</span>
-                        <span class="s-text6">on</span> <span class="s-text7">July 22, 2017</span>
+            @for(int i=0;i<6;i++){
 
-                        <p class="s-text8 p-t-16">
-                            Duis ut velit gravida nibh bibendum commodo. Sus-pendisse pellentesque mattis augue id euismod. Inter-dum et malesuada fames
-                        </p>
+                var random4 = new Random();
+                int width4 = 720;
+                int height4 = 539;
+                var obj4 = Model.products[random4.Next(Model.products.Count()) == 0 ? 0 : random4.Next(Model.products.Count())];
+                var file4 = obj4.ProductPictures.Where(x => x.DefaultPicture == true).ToList().FirstOrDefault().Name;
+                var newFile4 = $"{width4}_{height4}_{file4}";
+                if (file2 != null && !System.IO.File.Exists($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile4}"))
+                {
+                    ImageResize.ScaleAndCrop(Image.FromFile($@"{_env.WebRootPath.ToString()}\ProductImage\{file4}"), width4, height4, TargetSpot.Center)
+                        .Save($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile4}");
+                }
+                <div class="col-sm-10 col-md-4 p-b-30 m-l-r-auto">
+                    <!-- Block3 -->
+                    <div class="block3">
+                        <a href="blog-detail.html" class="block3-img dis-block hov-img-zoom">
+                            <img src="~/newProductImage/@newFile4" alt="IMG-BLOG">
+                        </a>
+
+                        <div class="block3-txt p-t-14">
+                            <h4 class="p-b-7">
+                                <a href="blog-detail.html" class="m-text11">
+                                    @obj3.EnglishName
+                                </a>
+                            </h4>
+
+                            <span class="s-text6">Price</span> <span class="s-text7"> @obj3.Price</span>
+                
+
+
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-sm-10 col-md-4 p-b-30 m-l-r-auto">
-                <!-- Block3 -->
+                }
+                @*<div class="col-sm-10 col-md-4 p-b-30 m-l-r-auto">
+                 Block3
                 <div class="block3">
                     <a href="blog-detail.html" class="block3-img dis-block hov-img-zoom">
                         <img src="~/templete/images/blog-02.jpg" alt="IMG-BLOG">
@@ -281,7 +297,7 @@
             </div>
 
             <div class="col-sm-10 col-md-4 p-b-30 m-l-r-auto">
-                <!-- Block3 -->
+                 Block3
                 <div class="block3">
                     <a href="blog-detail.html" class="block3-img dis-block hov-img-zoom">
                         <img src="~/templete/images/blog-03.jpg" alt="IMG-BLOG">
@@ -302,8 +318,8 @@
                         </p>
                     </div>
                 </div>
+            </div>*@
             </div>
-        </div>
     </div>
 </section>
 
@@ -311,12 +327,12 @@
 <section class="instagram p-t-20">
     <div class="sec-title p-b-52 p-l-15 p-r-15">
         <h3 class="m-text5 t-center">
-            @@ follow us on Instagram
+            @@ follow us on FaceBook
         </h3>
     </div>
 
-    <div class="flex-w">
-        <!-- Block4 -->
+    @*<div class="flex-w">
+         Block4 
         <div class="block4 wrap-pic-w">
             <img src="~/templete/images/gallery-03.jpg" alt="IMG-INSTAGRAM">
 
@@ -338,7 +354,7 @@
             </a>
         </div>
 
-        <!-- Block4 -->
+         Block4 
         <div class="block4 wrap-pic-w">
             <img src="~/templete/images/gallery-07.jpg" alt="IMG-INSTAGRAM">
 
@@ -360,7 +376,7 @@
             </a>
         </div>
 
-        <!-- Block4 -->
+         Block4 
         <div class="block4 wrap-pic-w">
             <img src="~/templete/images/gallery-09.jpg" alt="IMG-INSTAGRAM">
 
@@ -382,7 +398,7 @@
             </a>
         </div>
 
-        <!-- Block4 -->
+         Block4 
         <div class="block4 wrap-pic-w">
             <img src="~/templete/images/gallery-13.jpg" alt="IMG-INSTAGRAM">
 
@@ -404,7 +420,7 @@
             </a>
         </div>
 
-        <!-- Block4 -->
+         Block4 
         <div class="block4 wrap-pic-w">
             <img src="~/templete/images/gallery-15.jpg" alt="IMG-INSTAGRAM">
 
@@ -425,40 +441,7 @@
                 </div>
             </a>
         </div>
-    </div>
+    </div>*@
 </section>
 
 <!-- Shipping -->
-<section class="shipping bgwhite p-t-62 p-b-46">
-    <div class="flex-w p-l-15 p-r-15">
-        <div class="flex-col-c w-size5 p-l-15 p-r-15 p-t-16 p-b-15 respon1">
-            <h4 class="m-text12 t-center">
-                Free Delivery Worldwide
-            </h4>
-
-            <a href="#" class="s-text11 t-center">
-                Click here for more info
-            </a>
-        </div>
-
-        <div class="flex-col-c w-size5 p-l-15 p-r-15 p-t-16 p-b-15 bo2 respon2">
-            <h4 class="m-text12 t-center">
-                30 Days Return
-            </h4>
-
-            <span class="s-text11 t-center">
-                Simply return it within 30 days for an exchange.
-            </span>
-        </div>
-
-        <div class="flex-col-c w-size5 p-l-15 p-r-15 p-t-16 p-b-15 respon1">
-            <h4 class="m-text12 t-center">
-                Store Opening
-            </h4>
-
-            <span class="s-text11 t-center">
-                Shop open from Monday to Sunday
-            </span>
-        </div>
-    </div>
-</section>

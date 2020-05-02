@@ -1,0 +1,54 @@
+﻿
+@using System.Drawing;
+@using LazZiya.ImageResize;
+@using Microsoft.AspNetCore.Hosting;
+@model DataAccessLayer.ViewModel.ProductForIndexPage
+@inject IHostingEnvironment _env;
+
+
+<section class="bgwhite p-t-66 p-b-38">
+    <div class="container">
+        <div class="row">
+
+            @{
+
+
+                int width3 = 720;
+                int height3 = 866;
+                var file3 = "b30b6285-b820-4842-845d-df9e51d14835.jfif";
+                var newFile3 = $"{width3}_{height3}_{file3}";
+                if (file3 != null && !System.IO.File.Exists($"{_env.WebRootPath.ToString()}\\AboutIamge\\{newFile3}"))
+                {
+                    ImageResize.ScaleAndCrop(Image.FromFile($@"{_env.WebRootPath.ToString()}\AboutIamge\{file3}"), width3, height3, TargetSpot.Center)
+                        .Save($"{_env.WebRootPath.ToString()}\\AboutIamge\\{newFile3}");
+                }
+            }
+            <div class="col-md-4 p-b-30">
+                <div class="hov-img-zoom">
+                    <img src="~/AboutIamge/@newFile3" alt="IMG-ABOUT">
+                </div>
+            </div>
+
+            <div class="col-md-8 p-b-30">
+                <h3 class="m-text26 p-t-15 p-b-16">
+                    Our story
+                </h3>
+
+                <p class="p-b-28">
+                    Al-Huda page is all about your kids learning and has so much different materials to take advantages from it, our services here to help your child to read, write, listening and speak Arabic language. Invest and strengthen in your kids bright future.
+
+                </p>
+
+                <div class="bo13 p-l-29 m-l-9 p-b-10">
+                    <p class="p-b-11">
+                        We have eight categories under which there are several games and other interesting activities, like games, puzzles, learn Arabic and many more. As Islamic Play Land belong to one of the pioneer group of Online Industry, so we have expert’s designers and creator who are always devoted towards the betterment of the provided environment. Where all the gamers can enjoy, as this is somehow specific to kids so all the games and activities are created keeping the interaction level of kids in the mind
+                    </p>
+
+                    <span class="s-text7">
+                        - Nada Alzamaly
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

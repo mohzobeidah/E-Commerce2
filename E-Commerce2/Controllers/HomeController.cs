@@ -49,10 +49,10 @@ namespace E_Commerce2.Controllers
             return View(dataForindex);
         }
 
-        public async Task<IActionResult>  ShowProduct(string sortOrder,
-    string currentFilter,
-    string searchString,
-    int? pageNumber,int? CategoryId)
+        public async Task<IActionResult>  ShowProduct(string sortOrder, string currentFilter,string searchString, int? pageNumber,int? CategoryId
+            ,int? sortingPriceCat ,string sortingPriceNO
+
+            )
         
         
         
@@ -71,6 +71,9 @@ namespace E_Commerce2.Controllers
                 searchString = currentFilter;
             }
 
+
+
+
             ViewData["CurrentFilter"] = searchString;
 
             var product = productService.GetAllQuerable();
@@ -87,21 +90,27 @@ namespace E_Commerce2.Controllers
                                        || s.Price.ToString().Contains(searchString));
             }
 
-            switch (sortOrder)
+            if (!String.IsNullOrEmpty(sortingPriceNO))
             {
-                case "name_desc":
-                    product = product.OrderByDescending(s => s.Price);
-                    break;
-                case "Date":
-                    product = product.OrderBy(s => s.EnglishName);
-                    break;
-                case "date_desc":
-                    product = product.OrderByDescending(s => s.CategoryId);
-                    break;
-                default:
-                    product = product.OrderByDescending(s => s.InsertDate);
-                    break;
+                var range = sortingPriceNO.Split('-');
+                product = product.Where(s => s.Price >= float.Parse( range[0]) && s.Price <= float.Parse(range[1]));
+                                     
             }
+
+            switch (sortingPriceCat)
+                {
+                    case 2:
+                        product = product.OrderByDescending(s => s.Price);
+                        break;
+                    case 1:
+                        product = product.OrderBy(s => s.Price);
+                        break;
+                  
+                    default:
+                        product = product.OrderByDescending(s => s.InsertDate);
+                        break;
+                }
+            
 
             int pageSize = 12;
             return View(await PaginatedList<Product>.CreateAsync(product.Include(x => x.ProductPictures).AsNoTracking(), pageNumber ?? 1, pageSize));
@@ -118,6 +127,16 @@ namespace E_Commerce2.Controllers
         }
 
 
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        public IActionResult About()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
