@@ -62,6 +62,9 @@ namespace E_Commerce2.Controllers
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["category"] = await categoryService.GetQueryable(x => x.IsDelete == false).ToListAsync();
             ViewData["categoryId"] = CategoryId;
+
+            ViewData["sortingPriceCat"] = sortingPriceCat == null ? 0 : sortingPriceCat;
+            ViewData["sortingPriceNO"] = sortingPriceNO;
             if (searchString != null)
             {
                 pageNumber = 1;

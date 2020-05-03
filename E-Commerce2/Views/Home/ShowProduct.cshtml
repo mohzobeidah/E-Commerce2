@@ -69,20 +69,78 @@
                                 <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
                                     <select class="selection-2" name="sortingPriceCat" onchange="submitform(this);">
                                         <option>Default Sorting</option>
+                                        @if ((int)ViewData["sortingPriceCat"] == 1)
+                                        {
+                                            <option value="1" selected>Price: low to high</option>
+                                        }
+                                        else
+                                        {
 
-                                        <option value="1">Price: low to high</option>
-                                        <option value="2">Price: high to low</option>
+                                            <option value="1">Price: low to high</option>
+                                        }
+                                        @if ((int)ViewData["sortingPriceCat"] == 2)
+                                        {
+                                            <option value="2"selected>Price: high to low</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="2">Price: high to low</option>
+
+                                        }
+                                      
                                     </select>
                                 </div>
 
                                 <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10" onchange="submitform(this);">
                                     <select class="selection-2" name="sortingPriceNO">
-                                        <option>Price</option>
-                                        <option value="0-50">$0.00 - $50.00</option>
-                                        <option value="50-100">$50.00 - $100.00</option>
-                                        <option value="100-150">$100.00 - $150.00</option>
-                                        <option value="150-200">$150.00 - $200.00</option>
-                                        <option value="200-1000000">$200.00+</option>
+                                        <option value="">Price</option>
+                                        @if ((string)ViewData["sortingPriceNO"] == "0-50")
+                                        {
+                                            <option value="0-50" selected>$0.00 - $50.00</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="0-50">$0.00 - $50.00</option>
+                                        }
+
+                                        @if ((string)ViewData["sortingPriceNO"] == "50-100")
+                                        {
+                                            <option value="50-100" selected>$50.00 - $100.00</option>
+                                        }
+                                        else
+
+                                        {
+                                            <option value="50-100">$50.00 - $100.00</option>
+                                        }
+
+                                        @if ((string)ViewData["sortingPriceNO"] == "100-150")
+                                        {
+                                            <option value="100-150" selected>$100.00 - $150.00</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="100-150">$100.00 - $150.00</option>
+
+                                        }
+                                        @if ((string)ViewData["sortingPriceNO"] == "150-200")
+                                        {
+                                            <option value="150-200" selected>$150.00 - $200.00</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="150-200">$150.00 - $200.00</option>
+                                        }
+
+                                        @if ((string)ViewData["sortingPriceNO"] == "200-1000000")
+                                        {
+                                            <option value="200-1000000"selected >$200.00+</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="200-1000000">$200.00+</option>
+                                        }
+
+
 
                                     </select>
                                 </div>
@@ -182,11 +240,15 @@
                                asp-route-sortOrder="@ViewData[" CurrentSort"]"
                                asp-route-pageNumber="@(Model.PageIndex - 1)"
                                asp-route-currentFilter="@ViewData[" CurrentFilter"]"
+                                asp-route-sortingPriceCat="@(ViewData["sortingPriceCat"])"
+                                asp-route-sortingPriceNO="@(ViewData["sortingPriceNO"])"
                                class="btn btn-default btn-outline-info @prevDisabled">
                                 Previous
                             </a>
                             <a asp-action="ShowProduct"
                                asp-controller="Home"
+                               asp-route-sortingPriceCat="@(ViewData["sortingPriceCat"])"
+                              asp-route-sortingPriceNO="@(ViewData["sortingPriceNO"])"
                                asp-route-CategoryId="@(ViewData["categoryId"])"
                                asp-route-sortOrder="@ViewData[" CurrentSort"]"
                                asp-route-pageNumber="@(Model.PageIndex + 1)"
