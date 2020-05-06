@@ -155,8 +155,11 @@ namespace E_Commerce2.Controllers
 
                 if (result.Succeeded)
                 {
+                    if (user.IsAdmin==true)
+                    return RedirectToAction("IndexMain", "home" , new  {  area ="admin"});
+                    else
+                        return RedirectToAction("index", "home");
 
-                    return RedirectToAction("index", "home");
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");

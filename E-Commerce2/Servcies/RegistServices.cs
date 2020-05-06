@@ -19,6 +19,7 @@ namespace E_Commerce2.Servcies
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductPictureService, ProductPictureService>();
+            services.AddScoped<IUserService, UserService>();
             //  services.AddScoped<User, User>();
         }
     }

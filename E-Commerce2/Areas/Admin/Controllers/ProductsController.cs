@@ -11,6 +11,7 @@ using DataAccessLayer.ViewModel;
 using DataBaseLayer.Models;
 using E_Commerce2.Controllers;
 using E_Commerce2.Helper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace E_Commerce2.Areas.Admin.Controllers
 {
     [Area("Admin")]
 
-
+    [Authorize]
     public class ProductsController : BaseController
     {
         private readonly IHttpContextAccessor accessor;
