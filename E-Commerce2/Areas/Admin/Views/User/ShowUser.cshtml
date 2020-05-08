@@ -1,7 +1,7 @@
 ﻿
 @{ ViewData["Title"] = "Index"; }
 
-<h1>عرض المنتجات</h1>
+<h1>Show Users</h1>
 
 
 <style>
@@ -24,9 +24,9 @@
         @*<button type="button" id="addNewProduct"onclick="addNewProduct()" class="btn btn-outline-info" style="float:right;">
                 Add new Product
             </button>*@
-        <a href="@Url.Action("AddNewProduct","products")" class="btn btn-primary" style="float:right;">
-            Add new Product
-        </a>
+        @*<a href="@Url.Action("AddNewProduct","products")" class="btn btn-primary" style="float:right;">
+                Add new Product
+            </a>*@
 
     </div>
 
@@ -38,11 +38,11 @@
                 <tr>
 
                     <th scope="col">#</th>
-                    <th scope="col" width="10%"> Image</th>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Price </th> 
-                    <th scope="col">Price </th>
-                   
+                    <th scope="col" width="10%"> User Name</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">email Confirmed </th>
+                    <th scope="col">Is Admin </th>
+
 
                     <th scope="col"> Details</th>
 
@@ -61,9 +61,8 @@
             Action
         </button>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="">Add Product</a>
+            <a class="dropdown-item" href="#">Show User</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Separated link</a>
         </div>
@@ -185,34 +184,34 @@
 
                     },
                     "aoColumns": [
-                
+
                         {
                             data: null, render: function (data, type, row, iDisplayIndex) {
                                 return (iDisplayIndex.row + 1);
                             }
 
                         },
-                   
+
                         { data: "email" },
                         { data: "country" },
                         { data: "emailConfirmed" },
 
                         { data: "isAdmin" },
-                        
+
                         {
                             data: null, render: function (data, type, row) {
-                                return  '<div class="input-group mb-3">'+
-                                    '<div class="input-group-prepend">'+
-                                    '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Action</button>' +
-                                    '<div class="dropdown-menu">'+
-                                    '<a class="dropdown-item btn btn-outline-info" target="_blank"  href="/Admin/Products/AddNewProduct/' + data.id + '">Action</a>' +
-                                '<a class="dropdown-item" href="#">Another action</a>' +
-                                '<a class="dropdown-item" href="#">Something else here</a>' +
-                                '<div class="dropdown-divider"></div>' +
-                                '<a class="dropdown-item" href="#">Separated link</a>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>'
+                                return '<div class="input-group mb-3">' +
+                                    '<div class="input-group-prepend">' +
+                                    '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Add Permission</button>' +
+                                    '<div class="dropdown-menu">' +
+                                    '<a class="dropdown-item btn btn-outline-info" target="_blank"  href="/Admin/Products/AddNewProduct/' + data.id + '">Update Product</a>' +
+                                    '<a class="dropdown-item" href="#">Add Product</a>' +
+                                    '<a class="dropdown-item" href="#">Delete</a>' +
+                                    '<div class="dropdown-divider"></div>' +
+                                    '<a class="dropdown-item" href="#">Details</a>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>'
                                 //return '<div class="btn-group">' +
                                 //    '<button type="button" class="btn btn-info btn-flat">Actions</button>' +
                                 //    '<button type="button" class="btn btn-info btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">' +

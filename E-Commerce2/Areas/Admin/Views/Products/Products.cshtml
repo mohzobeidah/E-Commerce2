@@ -1,7 +1,7 @@
 ﻿
 @{ ViewData["Title"] = "Index"; }
 
-<h1>عرض المنتجات</h1>
+<h1>Products</h1>
 
 
 <style>
@@ -9,9 +9,11 @@
     #ProductTable_filter {
         text-align: end;
     }
+
     .table {
         font-size: 18px;
     }
+
     .img {
         width: 128px;
     }
@@ -81,7 +83,7 @@
 @section ScriptsLinks
 {
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>*@
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>*@
 
 
     <script src="~/DataTables-1.10.20/media/js/jquery.dataTables.min.js"></script>
@@ -222,18 +224,18 @@
                         },
                         {
                             data: null, render: function (data, type, row) {
-                                return  '<div class="input-group mb-3">'+
-                                    '<div class="input-group-prepend">'+
-                                    '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Action</button>' +
-                                    '<div class="dropdown-menu">'+
-                                    '<a class="dropdown-item btn btn-outline-info" target="_blank"  href="/Admin/Products/AddNewProduct/' + data.id + '">Action</a>' +
-                                '<a class="dropdown-item" href="#">Another action</a>' +
-                                '<a class="dropdown-item" href="#">Something else here</a>' +
-                                '<div class="dropdown-divider"></div>' +
-                                '<a class="dropdown-item" href="#">Separated link</a>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' 
+                                return '<div class="input-group mb-3">' +
+                                    '<div class="input-group-prepend">' +
+                                    '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Update Product</button>' +
+                                    '<div class="dropdown-menu">' +
+                                    '<a class="dropdown-item btn btn-outline-info" target="_blank"  href="/Admin/Products/AddNewProduct/' + data.id + '">New Product</a>' +
+                                    '<a class="dropdown-item" href="#">Delete</a>' +
+                                    '<a class="dropdown-item" href="#">Show</a>' +
+                                    '<div class="dropdown-divider"></div>' +
+                                    '<a class="dropdown-item" href="#">Details</a>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>'
                                 //return '<div class="btn-group">' +
                                 //    '<button type="button" class="btn btn-info btn-flat">Actions</button>' +
                                 //    '<button type="button" class="btn btn-info btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">' +

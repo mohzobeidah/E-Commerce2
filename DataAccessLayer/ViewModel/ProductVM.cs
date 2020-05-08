@@ -27,6 +27,7 @@ namespace DataAccessLayer.ViewModel
 
         public bool IsAvaible { get; set; }
         public bool IsShpping { get; set; }
+        public bool IsView { get; set; }
 
 
         public string ArImportantDetails { get; set; }
