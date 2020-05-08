@@ -20,8 +20,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace E_Commerce2.Areas.Admin.Controllers
 {
     [Area("Admin")]
-
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ProductsController : BaseController
     {
         private readonly IHttpContextAccessor accessor;

@@ -151,11 +151,18 @@ namespace E_Commerce2.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public async Task<IActionResult> productDetails(int id)
+        {
+            //var product = productService.getProductWithImage(id);
+            var product = productService.GetQueryable(x => x.IsDelete == false && x.Id == id)
+                                                       .Include(x => x.category)
+                                                       .Include(x => x.ProductPictures);
+            return View(await product.FirstOrDefaultAsync());
+        }
 
 
 
 
 
-      
     }
 }

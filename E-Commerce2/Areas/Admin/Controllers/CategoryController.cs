@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace E_Commerce2.Areas.Admin.Controllers
 {
     [Area("Admin")]
-     [Authorize]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : BaseController
     {
         private readonly ICategoryService _categoryService;

@@ -21,26 +21,28 @@ namespace E_Commerce2.Controllers
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly ILogger<AccountController> logger;
         private readonly IConfiguration configuration;
 
-        public AccountController(UserManager<User> userManager  , SignInManager<User> signInManager,
-                                ILogger<AccountController> logger, IConfiguration configuration)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,
+                        RoleManager<IdentityRole> roleManager, ILogger<AccountController> logger, IConfiguration configuration)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.roleManager = roleManager;
             this.logger = logger;
             this.configuration = configuration;
         }
         public IActionResult Register()
         {
 
-            
-            return View(new UserVM ());
+
+            return View(new UserVM());
         }
-     [HttpPost]
-    [AllowAnonymous]
-    public async Task<IActionResult> Register(UserVM model, string returnUrl)
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register(UserVM model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -111,15 +113,17 @@ namespace E_Commerce2.Controllers
 
         // rest of the code  
         public IActionResult Login()
-    {
+        {
 
 
 
-        return View();
-    }
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
+
+
             if (ModelState.IsValid)
             {
                 var user = await userManager.FindByEmailAsync(model.Email);
@@ -132,13 +136,13 @@ namespace E_Commerce2.Controllers
                 if (user.EmailConfirmed == false)
                 {
                     var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
-                   
+
                     var confirmationLink = Url.Action("ConfirmEmail", "Account",
                       new { userId = user.Id, token = token }, Request.Scheme);
 
                     logger.Log(LogLevel.Warning, confirmationLink);
 
-                    
+
 
                     var newemail = new DevEmailSender(configuration).SendEmailAsync(user.Email, "Email Confirmation", $"<h2>Thank you for joining us </h2><h2>to complete your registration please cclick the link  below</h2><a href='{confirmationLink}' class='btn btn-success'>Confirm your account</a>`");
                     ModelState.AddModelError(string.Empty, "Check your Email and verify your account");
@@ -155,8 +159,15 @@ namespace E_Commerce2.Controllers
 
                 if (result.Succeeded)
                 {
-                    if (user.IsAdmin==true)
-                    return RedirectToAction("IndexMain", "home" , new  {  area ="admin"});
+                    //if(!await roleManager.RoleExistsAsync("Admin"))
+                    // {
+                    //     var role = new Microsoft.AspNetCore.Identity.IdentityRole();
+                    //     role.Name = "Admin";
+                    //   await   roleManager.CreateAsync(role);
+                    // }
+                    // await  userManager.AddToRoleAsync(user,"Admin");
+                    if (user.IsAdmin == true)
+                        return RedirectToAction("IndexMain", "home", new { area = "admin" });
                     else
                         return RedirectToAction("index", "home");
 
@@ -167,17 +178,13 @@ namespace E_Commerce2.Controllers
 
             return View(model);
         }
-        [HttpPost]
+        // [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("index", "home");
-        }   
+        }
 
     }
-
-  
-
-
 
 }

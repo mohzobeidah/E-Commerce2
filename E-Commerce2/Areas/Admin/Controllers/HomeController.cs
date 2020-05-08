@@ -10,8 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace E_Commerce2.Areas.Admin.Controllers
 {
     [Area("Admin")]
-   //[Route("Admin/Home")]
-   [Authorize]
+    [Authorize(Roles = "Admin")]
     public class HomeController : BaseController
     {
         public HomeController(IHttpContextAccessor accessor) : base(accessor)
