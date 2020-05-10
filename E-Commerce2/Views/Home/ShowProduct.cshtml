@@ -167,15 +167,18 @@
 
                                                     int width = 720;
                                                     int height = 960;
-                                                    var file = item.ProductPictures.Where(x => x.DefaultPicture == true).ToList().FirstOrDefault().Name;
+                                                    var file = item?.ProductPictures?.Where(x => x.DefaultPicture == true)?.FirstOrDefault()?.Name;
                                                     var newFile = $"{width}_{height}_{file}";
-                                                    if (file != null && !System.IO.File.Exists($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile}"))
+                                                    if (System.IO.File.Exists($@"{_env.WebRootPath.ToString()}\ProductImage\{file}"))
                                                     {
-                                                        ImageResize.ScaleAndCrop(Image.FromFile($@"{_env.WebRootPath.ToString()}\ProductImage\{file}"), width, height, TargetSpot.Center)
-                                                            .Save($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile}");
+                                                        if (file != null && !System.IO.File.Exists($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile}"))
+                                                        {
+                                                            ImageResize.ScaleAndCrop(Image.FromFile($@"{_env.WebRootPath.ToString()}\ProductImage\{file}"), width, height, TargetSpot.Center)
+                                                                .Save($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile}");
+                                                        }
                                                     }
 
-                                                }
+                                                    }
                                                 <img src="~/newProductImage/@newFile" alt="@newFile">
 
                                             </div>
@@ -189,7 +192,7 @@
                                             @if (item.Disaccunt > 0)
                                             {
                                                 <span class="block2-oldprice m-text7 p-r-5">
-                                                    $@(item.Price+item.Disaccunt)
+                                                    $@(item.Price+item.Disaccunt) 
                                                 </span>
                                             }
 

@@ -3,6 +3,12 @@
 @using Microsoft.AspNetCore.Hosting;
 @model DataAccessLayer.ViewModel.ProductForIndexPage
 @inject IHostingEnvironment _env;
+
+@{ 
+
+    ViewData["Title"] = "Home";
+
+}
 <!-- Slide1 -->
 <section class="slide1">
     <div class="wrap-slick1">
@@ -98,12 +104,14 @@
 
                                 @{
 
-                                    var file = item.ProductPictures.Where(x => x.DefaultPicture == true).ToList().FirstOrDefault().Name;
+                                    var file = item.ProductPictures?.Where(x => x.DefaultPicture == true)?.FirstOrDefault()?.Name;
                                     var newFile = $"720_920_{file}";
-                                    if (file != null && !System.IO.File.Exists($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile}"))
-                                    {
-                                        ImageResize.ScaleAndCrop(Image.FromFile($@"{_env.WebRootPath.ToString()}\ProductImage\{file}"), 720, 960, TargetSpot.Center)
-                                            .Save($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile}");
+                                    if(System.IO.File.Exists($@"{_env.WebRootPath.ToString()}\ProductImage\{file}")) {
+                                        if (file != null && !System.IO.File.Exists($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile}") )
+                                        {
+                                            ImageResize.ScaleAndCrop(Image.FromFile($@"{_env.WebRootPath.ToString()}\ProductImage\{file}"), 720, 960, TargetSpot.Center)
+                                                .Save($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile}");
+                                        }
                                     }
                                 }
                                 <img src="~/newProductImage/@newFile" alt="IMG-PRODUCT">
@@ -155,17 +163,19 @@
                 int height = 539;
                 var obj = new DataBaseLayer.Models.Product();
                 if (Model.products.Count > 0) {
-                    obj= Model.products[random.Next(Model.products.Count()) == 0 ? 0 : random.Next(Model.products.Count())];
-                }   
-                var file2 = obj.ProductPictures.Where(x => x.DefaultPicture == true).ToList().FirstOrDefault().Name;
-                var newFile2 = $"{width}_{height}_{file2}";
-                if (file2 != null && !System.IO.File.Exists($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile2}"))
-                {
-                    ImageResize.ScaleAndCrop(Image.FromFile($@"{_env.WebRootPath.ToString()}\ProductImage\{file2}"), width, height, TargetSpot.Center)
-                        .Save($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile2}");
+                    obj= Model?.products[random.Next(Model.products.Count()) == 0 ? 0 : random.Next(Model.products.Count())];
                 }
+                var file2 = obj.ProductPictures?.Where(x => x.DefaultPicture == true)?.FirstOrDefault()?.Name;
+                var newFile2 = $"{width}_{height}_{file2}";
+                if (System.IO.File.Exists($@"{_env.WebRootPath.ToString()}\ProductImage\{file2}"))
+                {
+                    if (file2 != null && !System.IO.File.Exists($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile2}"))
+                    {
+                        ImageResize.ScaleAndCrop(Image.FromFile($@"{_env.WebRootPath.ToString()}\ProductImage\{file2}"), width, height, TargetSpot.Center)
+                            .Save($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile2}");
+                    }
 
-
+                }
                 <div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15">
                     <div class="hov-img-zoom pos-relative">
                         <img src="~/newProductImage/@newFile2" alt="IMG-BANNER">
@@ -192,21 +202,24 @@
                 var random3 = new Random();
                 int width3 = 720;
                 int height3 = 539;
-                var obj3 = Model.products[random3.Next(Model.products.Count()) == 0 ? 0 : random3.Next(Model.products.Count())];
-                var file3 = obj3.ProductPictures.Where(x => x.DefaultPicture == true).ToList().FirstOrDefault().Name;
+                var obj3 = Model?.products[random3.Next(Model.products.Count()) == 0 ? 0 : random3.Next(Model.products.Count())];
+                var file3 = obj3?.ProductPictures?.Where(x => x.DefaultPicture == true)?.FirstOrDefault()?.Name;
                 var newFile3 = $"{width3}_{height3}_{file3}";
-                if (file2 != null && !System.IO.File.Exists($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile3}"))
+                if (System.IO.File.Exists($@"{_env.WebRootPath.ToString()}\ProductImage\{file3}"))
                 {
-                    ImageResize.ScaleAndCrop(Image.FromFile($@"{_env.WebRootPath.ToString()}\ProductImage\{file3}"), width3, height3, TargetSpot.Center)
-                        .Save($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile3}");
+                    if (file2 != null && !System.IO.File.Exists($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile3}"))
+                    {
+                        ImageResize.ScaleAndCrop(Image.FromFile($@"{_env.WebRootPath.ToString()}\ProductImage\{file3}"), width3, height3, TargetSpot.Center)
+                            .Save($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile3}");
+                    }
                 }
 
 
                 <div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15">
                     <div class="hov-img-zoom pos-relative">
-                        <a href="/Home/ProductDetails/@obj3.Id>
-                            <img src="~/newProductImage/@newFile3" alt="IMG-BANNER">
-                        </a>
+                                   
+                                        <img src="~/newProductImage/@newFile3" alt="IMG-BANNER">
+                                   
 
                         <div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
                             <span class="m-text9 p-t-45 fs-20-sm">
@@ -248,19 +261,22 @@
                 var random4 = new Random();
                 int width4 = 720;
                 int height4 = 539;
-                var obj4 = Model.products[random4.Next(Model.products.Count()) == 0 ? 0 : random4.Next(Model.products.Count())];
-                var file4 = obj4.ProductPictures.Where(x => x.DefaultPicture == true).ToList().FirstOrDefault().Name;
+                var obj4 = Model?.products[random4.Next(Model.products.Count()) == 0 ? 0 : random4.Next(Model.products.Count())];
+                var file4 = obj4?.ProductPictures?.Where(x => x.DefaultPicture == true)?.FirstOrDefault()?.Name;
                 var newFile4 = $"{width4}_{height4}_{file4}";
-                if (file2 != null && !System.IO.File.Exists($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile4}"))
+                if (System.IO.File.Exists($@"{_env.WebRootPath.ToString()}\ProductImage\{file4}"))
                 {
-                    ImageResize.ScaleAndCrop(Image.FromFile($@"{_env.WebRootPath.ToString()}\ProductImage\{file4}"), width4, height4, TargetSpot.Center)
-                        .Save($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile4}");
+                    if (file2 != null && !System.IO.File.Exists($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile4}"))
+                    {
+                        ImageResize.ScaleAndCrop(Image.FromFile($@"{_env.WebRootPath.ToString()}\ProductImage\{file4}"), width4, height4, TargetSpot.Center)
+                            .Save($"{_env.WebRootPath.ToString()}\\newProductImage\\{newFile4}");
+                    }
                 }
                 <div class="col-sm-10 col-md-4 p-b-30 m-l-r-auto">
                     <!-- Block3 -->
                     <div class="block3">
 
-                        <a href="/Home/productDetails/@obj3.Id" class="block3-img dis-block hov-img-zoom">
+                        <a href="~/Home/productDetails/@obj3.Id" class="block3-img dis-block hov-img-zoom">
                             <img src="~/newProductImage/@newFile4" alt="IMG-BLOG">
                         </a>
 
