@@ -1,5 +1,7 @@
 ﻿@using DataAccessLayer.IRepository
 @inject ICategoryService categoryService
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor _accessor
 @{
 
     ViewData["category"] =  categoryService.GetQueryable(x => x.IsDelete == false).ToList();
@@ -43,15 +45,14 @@
     <link rel="stylesheet" type="text/css" href="~/templete/css/util.css">
     <link rel="stylesheet" type="text/css" href="~/templete/css/main.css">
     <!--===============================================================================================-->
-
-
     @*<style>
 
-        body {
-            background-image: url(/AboutIamge/kids-background-png-3.pngs) !important;
-        }
-    </style>*@
+            body {
+                background-image: url(/AboutIamge/kids-background-png-3.pngs) !important;
+            }
+        </style>*@
 </head>
+
 
 
 <body class="animsition">
@@ -64,9 +65,9 @@
                 <div class="topbar-social">
                     <a href="https://www.facebook.com/Al-huda-755241178182424/" class="topbar-social-item fa fa-facebook"></a>
                     @*<a href="#" class="topbar-social-item fa fa-instagram"></a>
-                    <a href="#" class="topbar-social-item fa fa-pinterest-p"></a>
-                    <a href="#" class="topbar-social-item fa fa-snapchat-ghost"></a>
-                    <a href="#" class="topbar-social-item fa fa-youtube-play"></a>*@
+                        <a href="#" class="topbar-social-item fa fa-pinterest-p"></a>
+                        <a href="#" class="topbar-social-item fa fa-snapchat-ghost"></a>
+                        <a href="#" class="topbar-social-item fa fa-youtube-play"></a>*@
                 </div>
 
                 @*<span class="topbar-child1">
@@ -74,16 +75,28 @@
                     </span>*@
 
             <div class="topbar-child2">
-
-                <span class="topbar-email">
-                    <a href="/account/Login">Login</a>
-                </span>
-                &nbsp;
-                &nbsp;
-                <span class="topbar-email">
-                    <a href="/account/Register">Sign up</a>
-                </span>
-
+                @if (_accessor.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    <span class="topbar-email">
+                        <a href="/">@_accessor.HttpContext.User.Identity.Name</a>
+                    </span>
+                    @:&nbsp;
+                    @: &nbsp;
+                    <span class="topbar-email">
+                        <a href="/account/Logout">Logout </a>
+                    </span>
+                }
+                else
+                {
+                    <span class="topbar-email">
+                        <a href="/account/Login">Login</a>
+                    </span>
+                    @:&nbsp;
+                    @: &nbsp;
+                    <span class="topbar-email">
+                        <a href="/account/Register">Sign up</a>
+                    </span>
+                }
                 @*
            <span class="topbar-email">
                fashe@@example.com
@@ -122,11 +135,11 @@
                                         foreach (var item in (List<DataBaseLayer.Models.Category>)ViewData["category"])
 
                                         {
-                                            <li class="p-t-4">
-                                                <a href="/Home/ShowProduct?CategoryId=@(item.Id)&&pageNumber=1" class="s-text13">
-                                                    @item.EnglishName?.ToUpper()
-                                                </a>
-                                            </li>
+                                    <li class="p-t-4">
+                                        <a href="/Home/ShowProduct?CategoryId=@(item.Id)&&pageNumber=1" class="s-text13">
+                                            @item.EnglishName?.ToUpper()
+                                        </a>
+                                    </li>
                                         }
                                     }
 
@@ -137,7 +150,7 @@
                                 <a href="/home/ShowProduct">Products</a>
                             </li>
 
-                          
+
 
 
 
@@ -256,88 +269,88 @@
                 <!-- Header Icon mobile -->
                 <div class="header-icons-mobile">
                     @*<a href="#" class="header-wrapicon1 dis-block">
-                        <img src="~/templete/images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-                    </a>*@
+                            <img src="~/templete/images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
+                        </a>*@
 
                     <span class="linedivide2"></span>
 
                     @*<div class="header-wrapicon2">
-                        <img src="~/templete/images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-                        <span class="header-icons-noti">0</span>
+                            <img src="~/templete/images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                            <span class="header-icons-noti">0</span>
 
-                         Header cart noti 
-                       <div class="header-cart header-dropdown">
-                            <ul class="header-cart-wrapitem">
-                                <li class="header-cart-item">
-                                    <div class="header-cart-item-img">
-                                        <img src="~/templete/images/item-cart-01.jpg" alt="IMG">
-                                    </div>
+                             Header cart noti
+                           <div class="header-cart header-dropdown">
+                                <ul class="header-cart-wrapitem">
+                                    <li class="header-cart-item">
+                                        <div class="header-cart-item-img">
+                                            <img src="~/templete/images/item-cart-01.jpg" alt="IMG">
+                                        </div>
 
-                                    <div class="header-cart-item-txt">
-                                        <a href="#" class="header-cart-item-name">
-                                            White Shirt With Pleat Detail Back
-                                        </a>
+                                        <div class="header-cart-item-txt">
+                                            <a href="#" class="header-cart-item-name">
+                                                White Shirt With Pleat Detail Back
+                                            </a>
 
-                                        <span class="header-cart-item-info">
-                                            1 x $19.00
-                                        </span>
-                                    </div>
-                                </li>
+                                            <span class="header-cart-item-info">
+                                                1 x $19.00
+                                            </span>
+                                        </div>
+                                    </li>
 
-                                <li class="header-cart-item">
-                                    <div class="header-cart-item-img">
-                                        <img src="~/templete/images/item-cart-02.jpg" alt="IMG">
-                                    </div>
+                                    <li class="header-cart-item">
+                                        <div class="header-cart-item-img">
+                                            <img src="~/templete/images/item-cart-02.jpg" alt="IMG">
+                                        </div>
 
-                                    <div class="header-cart-item-txt">
-                                        <a href="#" class="header-cart-item-name">
-                                            Converse All Star Hi Black Canvas
-                                        </a>
+                                        <div class="header-cart-item-txt">
+                                            <a href="#" class="header-cart-item-name">
+                                                Converse All Star Hi Black Canvas
+                                            </a>
 
-                                        <span class="header-cart-item-info">
-                                            1 x $39.00
-                                        </span>
-                                    </div>
-                                </li>
+                                            <span class="header-cart-item-info">
+                                                1 x $39.00
+                                            </span>
+                                        </div>
+                                    </li>
 
-                                <li class="header-cart-item">
-                                    <div class="header-cart-item-img">
-                                        <img src="~/templete/images/item-cart-03.jpg" alt="IMG">
-                                    </div>
+                                    <li class="header-cart-item">
+                                        <div class="header-cart-item-img">
+                                            <img src="~/templete/images/item-cart-03.jpg" alt="IMG">
+                                        </div>
 
-                                    <div class="header-cart-item-txt">
-                                        <a href="#" class="header-cart-item-name">
-                                            Nixon Porter Leather Watch In Tan
-                                        </a>
+                                        <div class="header-cart-item-txt">
+                                            <a href="#" class="header-cart-item-name">
+                                                Nixon Porter Leather Watch In Tan
+                                            </a>
 
-                                        <span class="header-cart-item-info">
-                                            1 x $17.00
-                                        </span>
-                                    </div>
-                                </li>
-                            </ul>
+                                            <span class="header-cart-item-info">
+                                                1 x $17.00
+                                            </span>
+                                        </div>
+                                    </li>
+                                </ul>
 
-                            <div class="header-cart-total">
-                                Total: $75.00
-                            </div>
-
-                            <div class="header-cart-buttons">
-                                <div class="header-cart-wrapbtn">
-                                     Button 
-                                    <a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                        View Cart
-                                    </a>
+                                <div class="header-cart-total">
+                                    Total: $75.00
                                 </div>
 
-                                <div class="header-cart-wrapbtn">
-                                     Button 
-                                    <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                        Check Out
-                                    </a>
+                                <div class="header-cart-buttons">
+                                    <div class="header-cart-wrapbtn">
+                                         Button
+                                        <a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                            View Cart
+                                        </a>
+                                    </div>
+
+                                    <div class="header-cart-wrapbtn">
+                                         Button
+                                        <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                            Check Out
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>*@
+                        </div>*@
                 </div>
 
                 <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
@@ -353,35 +366,35 @@
             <nav class="side-menu">
                 <ul class="main-menu">
                     @*<li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
-            <span class="topbar-child1">
-                Free shipping for standard order over $100
-            </span>
-        </li>
+                            <span class="topbar-child1">
+                                Free shipping for standard order over $100
+                            </span>
+                        </li>
 
-        <li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
-            <div class="topbar-child2-mobile">
-                <span class="topbar-email">
-                    fashe@@example.com
-                </span>
+                        <li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
+                            <div class="topbar-child2-mobile">
+                                <span class="topbar-email">
+                                    fashe@@example.com
+                                </span>
 
-                <div class="topbar-language rs1-select2">
-                    <select class="selection-1" name="time">
-                        <option>USD</option>
-                        <option>EUR</option>
-                    </select>
-                </div>
-            </div>
-        </li>
+                                <div class="topbar-language rs1-select2">
+                                    <select class="selection-1" name="time">
+                                        <option>USD</option>
+                                        <option>EUR</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
 
-        <li class="item-topbar-mobile p-l-10">
-            <div class="topbar-social-mobile">
-                <a href="#" class="topbar-social-item fa fa-facebook"></a>
-                <a href="#" class="topbar-social-item fa fa-instagram"></a>
-                <a href="#" class="topbar-social-item fa fa-pinterest-p"></a>
-                <a href="#" class="topbar-social-item fa fa-snapchat-ghost"></a>
-                <a href="#" class="topbar-social-item fa fa-youtube-play"></a>
-            </div>
-        </li>*@
+                        <li class="item-topbar-mobile p-l-10">
+                            <div class="topbar-social-mobile">
+                                <a href="#" class="topbar-social-item fa fa-facebook"></a>
+                                <a href="#" class="topbar-social-item fa fa-instagram"></a>
+                                <a href="#" class="topbar-social-item fa fa-pinterest-p"></a>
+                                <a href="#" class="topbar-social-item fa fa-snapchat-ghost"></a>
+                                <a href="#" class="topbar-social-item fa fa-youtube-play"></a>
+                            </div>
+                        </li>*@
 
                     <li class="item-menu-mobile">
 
@@ -398,11 +411,11 @@
                                 foreach (var item in (List<DataBaseLayer.Models.Category>)ViewData["category"])
 
                                 {
-                                    <li class="p-t-4">
-                                        <a href="/Home/ShowProduct?CategoryId=@(item.Id)&&pageNumber=1" class="s-text13">
-                                            @item.EnglishName?.ToUpper()
-                                        </a>
-                                    </li>
+                            <li class="p-t-4">
+                                <a href="/Home/ShowProduct?CategoryId=@(item.Id)&&pageNumber=1" class="s-text13">
+                                    @item.EnglishName?.ToUpper()
+                                </a>
+                            </li>
                                 }
                             }
                         </ul>
@@ -411,7 +424,7 @@
 
 
 
-                    
+
                     <li class="item-menu-mobile">
                         <a href="/home/ShowProduct">Products</a>
                     </li>
@@ -442,7 +455,7 @@
                         Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
                     </p>
 
-                    
+
                 </div>
             </div>
 
@@ -451,26 +464,26 @@
                     Categories
                 </h4>
 
-                
-                    <ul class="sub-menu">
-                        @if (ViewData["category"] != null)
+
+                <ul class="sub-menu">
+                    @if (ViewData["category"] != null)
                         {
                             foreach (var item in (List<DataBaseLayer.Models.Category>)ViewData["category"])
 
                             {
-                                <li class="p-t-4">
-                                    <a href="/Home/ShowProduct?CategoryId=@(item.Id)&&pageNumber=1" class="s-text13">
-                                        @item.EnglishName?.ToUpper()
-                                    </a>
-                                </li>
+                    <li class="p-t-4">
+                        <a href="/Home/ShowProduct?CategoryId=@(item.Id)&&pageNumber=1" class="s-text13">
+                            @item.EnglishName?.ToUpper()
+                        </a>
+                    </li>
                             }
                         }
-                    </ul>
-            
+                </ul>
+
             </div>
 
             <div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
-             <h4 class="s-text12 p-b-30">
+                <h4 class="s-text12 p-b-30">
                     Productd
                 </h4>
 
@@ -482,7 +495,7 @@
                     Contact Us
                 </h4>
 
-                
+
             </div>
 
             <div class="w-size8 p-t-30 p-l-15 p-r-15 respon3">
@@ -490,18 +503,18 @@
                     Newsletter
                 </h4>
 
-               
 
-              
-                        <!-- Button -->
-                        <div class="flex-m p-t-30">
-                            <a href="https://www.facebook.com/Al-huda-755241178182424/" class="fs-18 color1 p-r-20 fa fa-facebook"></a>
-                            @*<a href="#" class="fs-18 color1 p-r-20 fa fa-instagram"></a>
-                            <a href="#" class="fs-18 color1 p-r-20 fa fa-pinterest-p"></a>
-                            <a href="#" class="fs-18 color1 p-r-20 fa fa-snapchat-ghost"></a>
-                            <a href="#" class="fs-18 color1 p-r-20 fa fa-youtube-play"></a>*@
-                        </div>
-                  
+
+
+                <!-- Button -->
+                <div class="flex-m p-t-30">
+                    <a href="https://www.facebook.com/Al-huda-755241178182424/" class="fs-18 color1 p-r-20 fa fa-facebook"></a>
+                    @*<a href="#" class="fs-18 color1 p-r-20 fa fa-instagram"></a>
+                        <a href="#" class="fs-18 color1 p-r-20 fa fa-pinterest-p"></a>
+                        <a href="#" class="fs-18 color1 p-r-20 fa fa-snapchat-ghost"></a>
+                        <a href="#" class="fs-18 color1 p-r-20 fa fa-youtube-play"></a>*@
+                </div>
+
 
             </div>
         </div>
